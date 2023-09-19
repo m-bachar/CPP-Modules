@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 20:00:10 by mbachar           #+#    #+#             */
-/*   Updated: 2023/09/17 21:05:46 by benito           ###   ########.fr       */
+/*   Updated: 2023/09/18 21:24:39 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ int	main(int ac, char **av)
 			for (int i = 0; av[j][i]; i++)
 			{
 				if (av[j][i] >= 'a' && av[j][i] <= 'z')
-					av[j][i] = std::tolower(av[j][i]);
+					av[j][i] = std::toupper(av[j][i]);
 				std::cout << av[j][i];
 			}
+			if (av[j + 1])
+				std::cout << ' ';
 		}
 		std::cout << '\n';
 	}

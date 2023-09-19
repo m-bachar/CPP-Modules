@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 20:29:13 by mbachar           #+#    #+#             */
-/*   Updated: 2023/09/17 21:37:25 by benito           ###   ########.fr       */
+/*   Updated: 2023/09/19 02:51:05 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,31 @@ void	search_contact(PhoneBook &book, int reference)
 
 	i = 0;
 	index = -1;
-	std::cout << "|-----------|-----------|-----------|-----------|" << std::endl;
-	std::cout << "|      Index| First Name|  Last Name|  Nick Name|" << std::endl;
-	std::cout << "|-----------|-----------|-----------|-----------|" << std::endl;
+	std::cout << "|----------|----------|----------|----------|" << std::endl;
+	std::cout << "|     Index|First Name| Last Name| Nick Name|" << std::endl;
+	std::cout << "|----------|----------|----------|----------|" << std::endl;
 	while (i < reference)
 	{
-		std::cout << "|" << "          " << i << "|" 
-			<< book.contacts[i].firstNameGetter().substr(0, 10) + "." 
-			<< "|" << book.contacts[i].lastNameGetter().substr(0, 10) + "." 
-			<< "|" << book.contacts[i].nickNameGetter().substr(0, 10) + "." 
-			<< "|" << std::endl;
-		std::cout << "|-----------|-----------|-----------|-----------|" << std::endl;
+		std::cout << "|" << "         " << i << "|";
+		if (book.contacts[i].firstNameGetter().length() > 9)
+			std::cout << book.contacts[i].firstNameGetter().substr(0, 9) + ".";
+		else
+			std::cout << book.contacts[i].firstNameGetter() << std::setw(10);
+		if (book.contacts[i].lastNameGetter().length() > 9)
+			std::cout << "|" << book.contacts[i].lastNameGetter().substr(0, 9) + ".";
+		else
+			std::cout << "|" << book.contacts[i].lastNameGetter() << std::setw(10);
+		if (book.contacts[i].nickNameGetter().length() > 9)
+			std::cout << "|" << book.contacts[i].nickNameGetter().substr(0, 9) + ".";
+		else
+			std::cout << "|" << book.contacts[i].nickNameGetter() << std::setw(10);
+		std::cout << "|" << std::endl;
+		std::cout << "|----------|----------|----------|----------|" << std::endl;
 		i++;
 	}
-	while (index < 0 || index > reference) // Check if index is a digit or not
+	while (index < 0 || index > i || index > 7) // Check if index is a digit or not
 	{
-		std::cout << "Index must range between (0 - "
-					<< reference << ") : ";
+		std::cout << "Index must range between (0 - 7)"; // use getline and atoi on index
 		std::cin >> index;
 	}
 	std::cout << "First Name     : " << book.contacts[index].firstNameGetter() << std::endl;
@@ -77,17 +85,17 @@ void	search_contact(PhoneBook &book, int reference)
 
 int main(void)
 {
-	static PhoneBook	book;
+	PhoneBook	book;
 	std::string			input;
 	int					i;
 
 	i = 0;
+	std::cout << "Enter a command to begin (ADD, SEARCH, EXIT) : ";
 	while (true)
 	{
-		std::cout << "Enter a command to begin (ADD, SEARCH, EXIT) : ";
 		if (!std::getline(std::cin, input))
 			exit (1);
-		if (!input.compare("EXIT"))
+		else if (!input.compare("EXIT"))
 			break;
 		else if (!input.compare("ADD"))
 		{
@@ -98,6 +106,7 @@ int main(void)
 		}
 		else if (!input.compare("SEARCH"))
 			search_contact(book, i);
+		std::cout << "Enter a command to begin (ADD, SEARCH, EXIT) : ";
 	}
 	return (0);
 }
