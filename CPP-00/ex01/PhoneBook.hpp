@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 20:29:19 by mbachar           #+#    #+#             */
-/*   Updated: 2023/09/19 02:10:22 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/09/20 01:07:09 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #define PHONEBOOK_HPP
 
 #include <iostream>
-// #include <sstream>
 #include <iomanip>
 #include "Contact.hpp"
 
@@ -25,6 +24,6 @@ public:
 };
 
 void	add_contact(PhoneBook &book, int i);
-void	search_contact(PhoneBook &book, int reference);
+void	search_contact(PhoneBook &book);
 
 #endif

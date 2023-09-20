@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 20:29:13 by mbachar           #+#    #+#             */
-/*   Updated: 2023/09/19 02:51:05 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/09/20 03:04:25 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,60 +21,79 @@ void	add_contact(PhoneBook &book, int i)
 	std::string	darkestSecret;
 
 	std::cout << "First Name     : ";
-	if (!std::getline(std::cin, firstName) || !firstName.length())
+	if (!std::getline(std::cin, firstName) || std::cin.eof() ||!firstName.length()) // .eof??
 		exit (1);
 	book.contacts[i].firstNameSetter(firstName);
 	std::cout << "Last Name      : ";
-	if (!std::getline(std::cin, lastName) || !lastName.length())
+	if (!std::getline(std::cin, lastName) || std::cin.eof() || !lastName.length())
 		exit (1);
 	book.contacts[i].lastNameSetter(lastName);
-	std::cout << "Nick Name      : ";
-	if (!std::getline(std::cin, nickName) || !nickName.length())
+	std::cout << "Nickname       : ";
+	if (!std::getline(std::cin, nickName) || std::cin.eof() || !nickName.length())
 		exit (1);
 	book.contacts[i].nickNameSetter(nickName);
 	std::cout << "Phone Number   : ";
-	if (!std::getline(std::cin, phoneNumber) || !phoneNumber.length()) // phoneNumber must be a mix of digits
+	if (!std::getline(std::cin, phoneNumber) || std::cin.eof() || !phoneNumber.length())
 		exit (1);
+	for (size_t x = 0; x < phoneNumber.length(); x++)
+	{
+		if (!std::isdigit(phoneNumber[x]))
+		{
+			std::cout << "Error: Phone number must be composed of digits only !" << std::endl;
+			exit (1);
+		}
+	}
 	book.contacts[i].phoneNumberSetter(phoneNumber);
 	std::cout << "Darkest Secret : ";
-	if (!std::getline(std::cin, darkestSecret) || !darkestSecret.length())
+	if (!std::getline(std::cin, darkestSecret) || std::cin.eof() || !darkestSecret.length())
 		exit (1);
 	book.contacts[i].darkestSecretSetter(darkestSecret);
 }
 
-void	search_contact(PhoneBook &book, int reference)
+void	search_contact(PhoneBook &book)
 {
-	int	i;
-	int	index;
+	int			i;
+	int			index;
+	std::string	index2;
 
 	i = 0;
 	index = -1;
 	std::cout << "|----------|----------|----------|----------|" << std::endl;
-	std::cout << "|     Index|First Name| Last Name| Nick Name|" << std::endl;
+	std::cout << "|     Index|First Name| Last Name|  Nickname|" << std::endl;
 	std::cout << "|----------|----------|----------|----------|" << std::endl;
-	while (i < reference)
+	while (i < 8)
 	{
 		std::cout << "|" << "         " << i << "|";
 		if (book.contacts[i].firstNameGetter().length() > 9)
 			std::cout << book.contacts[i].firstNameGetter().substr(0, 9) + ".";
 		else
-			std::cout << book.contacts[i].firstNameGetter() << std::setw(10);
+			std::cout  << std::setw(10) << book.contacts[i].firstNameGetter();
 		if (book.contacts[i].lastNameGetter().length() > 9)
 			std::cout << "|" << book.contacts[i].lastNameGetter().substr(0, 9) + ".";
 		else
-			std::cout << "|" << book.contacts[i].lastNameGetter() << std::setw(10);
+			std::cout << "|" << std::setw(10) << book.contacts[i].lastNameGetter();
 		if (book.contacts[i].nickNameGetter().length() > 9)
 			std::cout << "|" << book.contacts[i].nickNameGetter().substr(0, 9) + ".";
 		else
-			std::cout << "|" << book.contacts[i].nickNameGetter() << std::setw(10);
+			std::cout << "|" << std::setw(10) << book.contacts[i].nickNameGetter();
 		std::cout << "|" << std::endl;
 		std::cout << "|----------|----------|----------|----------|" << std::endl;
 		i++;
 	}
-	while (index < 0 || index > i || index > 7) // Check if index is a digit or not
+	while (index < 0 || index > i || index > 7)
 	{
-		std::cout << "Index must range between (0 - 7)"; // use getline and atoi on index
-		std::cin >> index;
+		std::cout << "Index must range between (0 - 7) : ";
+		if (!std::getline(std::cin, index2))
+			exit (1);
+		for (size_t x = 0; x < index2.length(); x++)
+		{
+			if (!std::isdigit(index2[x]))
+			{
+				std::cout << "Error: Index must be a number between (0 - 7) !" << std::endl;
+				exit (1);
+			}
+		}
+		index = std::atoi(index2.c_str());
 	}
 	std::cout << "First Name     : " << book.contacts[index].firstNameGetter() << std::endl;
 	std::cout << "Last Name      : " << book.contacts[index].lastNameGetter() << std::endl;
@@ -85,17 +104,17 @@ void	search_contact(PhoneBook &book, int reference)
 
 int main(void)
 {
-	PhoneBook	book;
+	PhoneBook			book;
 	std::string			input;
 	int					i;
 
 	i = 0;
-	std::cout << "Enter a command to begin (ADD, SEARCH, EXIT) : ";
 	while (true)
 	{
-		if (!std::getline(std::cin, input))
+		std::cout << "Enter a command to begin (ADD, SEARCH, EXIT) : ";
+		if (!std::getline(std::cin, input)) // getline's delimiter == '\n', cin's delimiter == ' ' or any whitespace
 			exit (1);
-		else if (!input.compare("EXIT"))
+		else if (!input.compare("EXIT")) // compare is a public method of string class
 			break;
 		else if (!input.compare("ADD"))
 		{
@@ -105,8 +124,7 @@ int main(void)
 			i++;
 		}
 		else if (!input.compare("SEARCH"))
-			search_contact(book, i);
-		std::cout << "Enter a command to begin (ADD, SEARCH, EXIT) : ";
+			search_contact(book);
 	}
 	return (0);
 }
