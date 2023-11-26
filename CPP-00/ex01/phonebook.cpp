@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 20:29:13 by mbachar           #+#    #+#             */
-/*   Updated: 2023/09/20 03:04:25 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/11/26 23:14:27 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ void	add_contact(PhoneBook &book, int i)
 	std::string	phoneNumber;
 	std::string	darkestSecret;
 
-	std::cout << "First Name     : ";
+	std::cout << " * First Name     : ";
 	if (!std::getline(std::cin, firstName) || std::cin.eof() ||!firstName.length()) // .eof??
 		exit (1);
 	book.contacts[i].firstNameSetter(firstName);
-	std::cout << "Last Name      : ";
+	std::cout << " * Last Name      : ";
 	if (!std::getline(std::cin, lastName) || std::cin.eof() || !lastName.length())
 		exit (1);
 	book.contacts[i].lastNameSetter(lastName);
-	std::cout << "Nickname       : ";
+	std::cout << " * Nickname       : ";
 	if (!std::getline(std::cin, nickName) || std::cin.eof() || !nickName.length())
 		exit (1);
 	book.contacts[i].nickNameSetter(nickName);
-	std::cout << "Phone Number   : ";
+	std::cout << " * Phone Number   : ";
 	if (!std::getline(std::cin, phoneNumber) || std::cin.eof() || !phoneNumber.length())
 		exit (1);
 	for (size_t x = 0; x < phoneNumber.length(); x++)
@@ -44,24 +44,25 @@ void	add_contact(PhoneBook &book, int i)
 		}
 	}
 	book.contacts[i].phoneNumberSetter(phoneNumber);
-	std::cout << "Darkest Secret : ";
+	std::cout << " * Darkest Secret : ";
 	if (!std::getline(std::cin, darkestSecret) || std::cin.eof() || !darkestSecret.length())
 		exit (1);
 	book.contacts[i].darkestSecretSetter(darkestSecret);
 }
 
-void	search_contact(PhoneBook &book)
+void	search_contact(PhoneBook &book, int size)
 {
 	int			i;
 	int			index;
-	std::string	index2;
+	std::string	index_str;
 
 	i = 0;
 	index = -1;
+	// size = 0; // to be changed
 	std::cout << "|----------|----------|----------|----------|" << std::endl;
 	std::cout << "|     Index|First Name| Last Name|  Nickname|" << std::endl;
 	std::cout << "|----------|----------|----------|----------|" << std::endl;
-	while (i < 8)
+	while (i < size)
 	{
 		std::cout << "|" << "         " << i << "|";
 		if (book.contacts[i].firstNameGetter().length() > 9)
@@ -80,26 +81,7 @@ void	search_contact(PhoneBook &book)
 		std::cout << "|----------|----------|----------|----------|" << std::endl;
 		i++;
 	}
-	while (index < 0 || index > i || index > 7)
-	{
-		std::cout << "Index must range between (0 - 7) : ";
-		if (!std::getline(std::cin, index2))
-			exit (1);
-		for (size_t x = 0; x < index2.length(); x++)
-		{
-			if (!std::isdigit(index2[x]))
-			{
-				std::cout << "Error: Index must be a number between (0 - 7) !" << std::endl;
-				exit (1);
-			}
-		}
-		index = std::atoi(index2.c_str());
-	}
-	std::cout << "First Name     : " << book.contacts[index].firstNameGetter() << std::endl;
-	std::cout << "Last Name      : " << book.contacts[index].lastNameGetter() << std::endl;
-	std::cout << "Nick Name      : " << book.contacts[index].nickNameGetter() << std::endl;
-	std::cout << "Phone Number   : " << book.contacts[index].phoneNumberGetter() << std::endl;
-	std::cout << "Darkest Secret : " << book.contacts[index].darkestSecretGetter() << std::endl;
+	
 }
 
 int main(void)
@@ -112,9 +94,9 @@ int main(void)
 	while (true)
 	{
 		std::cout << "Enter a command to begin (ADD, SEARCH, EXIT) : ";
-		if (!std::getline(std::cin, input)) // getline's delimiter == '\n', cin's delimiter == ' ' or any whitespace
+		if (!std::getline(std::cin, input))
 			exit (1);
-		else if (!input.compare("EXIT")) // compare is a public method of string class
+		else if (!input.compare("EXIT"))
 			break;
 		else if (!input.compare("ADD"))
 		{
@@ -124,7 +106,7 @@ int main(void)
 			i++;
 		}
 		else if (!input.compare("SEARCH"))
-			search_contact(book);
+			search_contact(book, i);
 	}
 	return (0);
 }

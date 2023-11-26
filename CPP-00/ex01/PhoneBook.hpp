@@ -6,7 +6,7 @@
 /*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 20:29:19 by mbachar           #+#    #+#             */
-/*   Updated: 2023/09/20 01:07:09 by mbachar          ###   ########.fr       */
+/*   Updated: 2023/11/26 20:31:09 by mbachar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ public:
 };
 
 void	add_contact(PhoneBook &book, int i);
-void	search_contact(PhoneBook &book);
+void	search_contact(PhoneBook &book, int i);
 
 #endif
