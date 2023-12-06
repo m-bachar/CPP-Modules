@@ -1,24 +1,26 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Zombie.hpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: benito <benito@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/17 22:37:11 by benito            #+#    #+#             */
-/*   Updated: 2023/09/17 22:45:40 by benito           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef ZOMBIE_HPP
 # define ZOMBIE_HPP
 
 #include <iostream>
 
+#define RESET     "\x1b[0m"
+#define GREEN     "\x1b[1;32m"
+#define RED       "\x1b[1;31m"
+#define ORANGE    "\x1b[1;34m"
+
 class Zombie
 {
-private:
-	std::string	zombieName;
+	private:
+		std::string	name;
+	public:
+		Zombie();
+		void		zombieSetter(std::string	name);
+		std::string	zombieGetter(void);
+		void		announce(void);
+		~Zombie();
 };
+
+Zombie*		newZombie(std::string	name);
+void		randomChump(std::string	name);
 
 #endif

@@ -1,28 +1,19 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/09/15 20:29:22 by mbachar           #+#    #+#              #
-#    Updated: 2023/09/19 02:37:22 by mbachar          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 PHONEBOOK	=	phonebook
 
 CPP			=	c++
 
-CPPFLAGS	=	-Wall -Wextra -Werror -std=c++98 #-g -fsanitize=address
+CPPFLAGS	=	-Wall -Wextra -Werror -std=c++98
 
-SRC			=	phonebook.cpp
+SRC			=	PhoneBook.cpp \
+				Contact.cpp
 
-INCLUDE		=	phonebook.hpp
+INCLUDE1	=	PhoneBook.hpp
+
+INCLUDE2	=	Contact.hpp
 
 all: $(PHONEBOOK)
 
-$(PHONEBOOK) :
+$(PHONEBOOK) : $(INCLUDE1) $(INCLUDE2)
 	$(CPP) $(CPPFLAGS) $(SRC) -o $(PHONEBOOK)
 
 clean		:

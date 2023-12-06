@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/15 20:00:10 by mbachar           #+#    #+#             */
-/*   Updated: 2023/09/18 21:24:39 by mbachar          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <iostream>
 
 int	main(int ac, char **av)
@@ -20,14 +8,13 @@ int	main(int ac, char **av)
 	{
 		for (int j = 1; av[j]; j++)
 		{
-			for (int i = 0; av[j][i]; i++)
+			std::string	argv(av[j]);
+			for (int i = 0; argv[i]; i++)
 			{
-				if (av[j][i] >= 'a' && av[j][i] <= 'z')
-					av[j][i] = std::toupper(av[j][i]);
-				std::cout << av[j][i];
+				if (argv[i] >= 'a' && argv[i] <= 'z')
+					argv[i] = std::toupper(argv[i]);
+				std::cout << argv[i];
 			}
-			if (av[j + 1])
-				std::cout << ' ';
 		}
 		std::cout << '\n';
 	}

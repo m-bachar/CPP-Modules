@@ -1,29 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mbachar <mbachar@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/15 20:29:19 by mbachar           #+#    #+#             */
-/*   Updated: 2023/11/26 20:31:09 by mbachar          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+# define PHONEBOOK_HPP
 
 #include <iostream>
 #include <iomanip>
+
 #include "Contact.hpp"
+
+#define RESET     "\x1b[0m"
+#define GREEN     "\x1b[1;32m"
+#define RED       "\x1b[1;31m"
 
 class PhoneBook
 {
-public:
-	Contact		contacts[8];
+	private:
+		Contact		contacts[8];
+	public:
+		int	add_contact(int i);
+		int	search_contact();
 };
-
-void	add_contact(PhoneBook &book, int i);
-void	search_contact(PhoneBook &book, int i);
 
 #endif
