@@ -1,8 +1,8 @@
 #include "PhoneBook.hpp"
 
-void ft_error(std::string str)
+void ft_error(std::string error)
 {
-	std::cout << RED << "Error : " << RESET << str << std::endl;
+	std::cout << RED << "Error : " << RESET << error << std::endl;
 }
 
 int PhoneBook::add_contact(int i)
@@ -12,61 +12,86 @@ int PhoneBook::add_contact(int i)
 	std::string nickName;
 	std::string phoneNumber;
 	std::string darkestSecret;
-	int 		phone_flag;
+	int			phone_flag = 0;
 
-	phone_flag = 0;
-	std::cout << " * First Name     : ";
-	if (!std::getline(std::cin, firstName) || std::cin.eof() || !firstName.length())
+	while (1)
 	{
-		ft_error("Invalid input ! Try again !");
-		return (1);
-	}
-	else
-		contacts[i].firstNameSetter(firstName);
-	std::cout << " * Last Name      : ";
-	if (!std::getline(std::cin, lastName) || std::cin.eof() || !lastName.length())
-	{
-		ft_error("Invalid input ! Try again !");
-		return (1);
-	}
-	else
-		contacts[i].lastNameSetter(lastName);
-	std::cout << " * Nickname       : ";
-	if (!std::getline(std::cin, nickName) || std::cin.eof() || !nickName.length())
-	{
-		ft_error("Invalid input ! Try again !");
-		return (1);
-	}
-	else
-		contacts[i].nickNameSetter(nickName);
-	std::cout << " * Phone Number   : ";
-	if (!std::getline(std::cin, phoneNumber) || std::cin.eof() || !phoneNumber.length())
-	{
-		ft_error("Invalid input ! Try again !");
-		return (1);
-	}
-	else
-	{
-		for (size_t x = 0; x < phoneNumber.length(); x++)
+		std::cout << " * First Name     : ";
+		if (!std::getline(std::cin, firstName))
+			return (1);
+		if (std::cin.eof() || !firstName.length())
+			ft_error("Invalid input ! Try again !");
+		else
 		{
-			if (!std::isdigit(phoneNumber[x]))
+			contacts[i].firstNameSetter(firstName);
+			break ;
+		}
+	}
+	while (1)
+	{
+		std::cout << " * Last Name      : ";
+		if (!std::getline(std::cin, lastName))
+			return (1);
+		if (std::cin.eof() || !lastName.length())
+			ft_error("Invalid input ! Try again !");
+		else
+		{
+			contacts[i].lastNameSetter(lastName);
+			break ;
+		}
+	}
+	while (1)
+	{
+		std::cout << " * Nickname       : ";
+		if (!std::getline(std::cin, nickName))
+			return (1);
+		if (std::cin.eof() || !nickName.length())
+			ft_error("Invalid input ! Try again !");
+		else
+		{
+			contacts[i].nickNameSetter(nickName);
+			break ;
+		}
+	}
+	while (1)
+	{
+		std::cout << " * Phone Number   : ";
+		if (!std::getline(std::cin, phoneNumber))
+			return (1);
+		if (std::cin.eof() || !phoneNumber.length())
+			ft_error("Invalid input ! Try again !");
+		else
+		{
+			phone_flag = 0;
+			for (size_t x = 0; x < phoneNumber.length(); x++)
 			{
-				ft_error("Phone number must be composed of digits only !");
-				phone_flag = 1;
-				return (1);
+				if (!std::isdigit(phoneNumber[x]))
+				{
+					ft_error("Phone number must be composed of digits only !");
+					phone_flag = 1;
+					break ;
+				}
+			}
+			if (phone_flag == 0)
+			{
+				contacts[i].phoneNumberSetter(phoneNumber);
+				break ;
 			}
 		}
-		if (phone_flag == 0)
-			contacts[i].phoneNumberSetter(phoneNumber);
 	}
-	std::cout << " * Darkest Secret : ";
-	if (!std::getline(std::cin, darkestSecret) || std::cin.eof() || !darkestSecret.length())
+	while (1)
 	{
-		ft_error("Invalid input ! Try again !");
-		return (1);
+		std::cout << " * Darkest Secret : ";
+		if (!std::getline(std::cin, darkestSecret))
+			return (1);
+		if (std::cin.eof() || !darkestSecret.length())
+			ft_error("Invalid input ! Try again !");
+		else
+		{
+			contacts[i].darkestSecretSetter(darkestSecret);
+			break ;
+		}
 	}
-	else
-		contacts[i].darkestSecretSetter(darkestSecret);
 	return (0);
 }
 
@@ -132,36 +157,5 @@ int PhoneBook::search_contact(void)
 	std::cout << GREEN << "NickName       : " << RESET << contacts[index].nickNameGetter() << std::endl;
 	std::cout << GREEN << "Phone Number   : " << RESET << contacts[index].phoneNumberGetter() << std::endl;
 	std::cout << GREEN << "Darkest Secret : " << RESET << contacts[index].darkestSecretGetter() << std::endl;
-	return (0);
-}
-
-int main(void)
-{
-	PhoneBook	book;
-	std::string	input;
-	int i;
-
-	i = 0;
-	while (true)
-	{
-		std::cout << "Enter a command to begin (ADD, SEARCH, EXIT) : ";
-		if (!std::getline(std::cin, input))
-			return (1);
-		else if (!input.compare("EXIT"))
-		{
-			std::cout << GREEN << "Exiting Phonebook ... " << RESET << std::endl;
-			break;
-		}
-		else if (!input.compare("ADD"))
-		{
-			if (i > 7)
-				i = 0;
-			if (book.add_contact(i))
-				return (1);
-			i++;
-		}
-		else if (!input.compare("SEARCH"))
-			book.search_contact();
-	}
 	return (0);
 }

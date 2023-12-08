@@ -10,11 +10,7 @@ int	main(int ac, char **av)
 		{
 			std::string	argv(av[j]);
 			for (int i = 0; argv[i]; i++)
-			{
-				if (argv[i] >= 'a' && argv[i] <= 'z')
-					argv[i] = std::toupper(argv[i]);
-				std::cout << argv[i];
-			}
+				std::cout << (char)std::toupper(argv[i]);
 		}
 		std::cout << '\n';
 	}

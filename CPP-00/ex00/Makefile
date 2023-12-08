@@ -8,7 +8,7 @@ SRC			=	megaphone.cpp
 
 all: $(MEGAPHONE)
 
-$(MEGAPHONE) :
+$(MEGAPHONE) : $(SRC)
 	$(CPP) $(CPPFLAGS) $(SRC) -o $(MEGAPHONE)
 
 clean		:
