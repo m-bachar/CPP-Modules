@@ -9,7 +9,7 @@ void	error(std::string errorMsg)
 std::string	readFile(std::string fileName)
 {
 	std::string		fileContent;
-	std::ifstream	myFile(fileName);
+	std::ifstream	myFile(fileName.c_str());
 
 	if (!myFile)
 		error("unable to locate or open file.");
@@ -48,7 +48,8 @@ int	main(int ac, char **av)
 	}
 	std::string		filename = av[1];
 	std::string		newContent = search_and_replace(readFile(filename), av[2], av[3]);
-	std::ofstream	newFile(filename + ".replace");
+	std::string		newfilename = filename + ".replace";
+	std::ofstream	newFile(newfilename.c_str());
 
 	newFile << newContent;
 	std::cout << GREEN << "Success : " << RESET << "file " << filename + ".replace created successfuly." << std::endl;
