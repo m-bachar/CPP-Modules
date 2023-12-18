@@ -1,4 +1,4 @@
-CLAPTRAP	=	ClapTrap
+SCAVTRAP	=	ScavTrap
 
 CPP			=	c++
 
@@ -12,12 +12,12 @@ INCLUDE1	=	ClapTrap.hpp
 
 INCLUDE2	=	ScavTrap.hpp
 
-all: $(CLAPTRAP)
+all: $(SCAVTRAP)
 
-$(CLAPTRAP)	: $(SRC) $(INCLUDE1) $(INCLUDE2)
-	$(CPP) $(CPPFLAGS) $(SRC) -o $(CLAPTRAP)
+$(SCAVTRAP)	: $(SRC) $(INCLUDE1) $(INCLUDE2)
+	$(CPP) $(CPPFLAGS) $(SRC) -o $(SCAVTRAP)
 
 clean		:
-	rm -fr $(CLAPTRAP)
+	rm -fr $(SCAVTRAP)
 
 re			: clean all
