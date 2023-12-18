@@ -1,5 +1,4 @@
-#ifndef	FIXED_HPP
-# define FIXED_HPP
+#pragma once
 
 #include <iostream>
 #include <cmath>
@@ -12,20 +11,24 @@ class Fixed
 {
 	private:
 		int					rawBits;
-		static const int	fractionalBits = 8;
+		static const int	fractionalBits;
 	public:
+		/*		Default Constructors		*/
 		Fixed();
-		Fixed(const int number);
-		Fixed(const float number);
-		Fixed(const Fixed &obj);
-		// int		toInt(void);
-		// float	toFloat(void);
-		int		getRawBits(void) const;
-		void	setRawBits(int const raw);
+		Fixed(const int		number);
+		Fixed(const float	number);
+		/*		Copy Constructors			*/
+		Fixed(const	Fixed	&obj);
+		/*		Assignment Operator			*/
 		Fixed	&operator=(const Fixed &obj);
+		/*		toInt/toFloat Member Funcs	*/
+		int		toInt(void) const;
+		float	toFloat(void) const;
+		/*		Setters/Getters				*/
+		void	setRawBits(int const raw);
+		int		getRawBits(void) const;
+		/*		Destructor					*/
 		~Fixed();
 };
 
 std::ostream	&operator<<(std::ostream &os, const Fixed &obj);
-
-#endif
