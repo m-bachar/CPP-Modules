@@ -2,7 +2,7 @@
 
 #include "ClapTrap.hpp"
 
-class ScavTrap
+class ScavTrap:public ClapTrap
 {
 	
 };

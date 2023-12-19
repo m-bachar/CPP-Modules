@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <cstdlib>
 
 # define	RESET	"\x1b[0m"
 # define	GREEN	"\x1b[1;32m"

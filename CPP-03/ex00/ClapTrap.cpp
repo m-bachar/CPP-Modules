@@ -3,7 +3,7 @@
 ClapTrap::ClapTrap()
 {
 	std::cout << GREEN << "Default " << RESET << "constructor called !" << std::endl;
-	this->name = "Random Name";
+	this->name = "Benito";
 	this->hitPoints = 10;
 	this->energyPoints = 10;
 	this->attackDamage = 0;
@@ -43,7 +43,7 @@ void	ClapTrap::attack(const std::string &target)
 		energyPoints--;
 	}
 	else
-		std::cout << "ClapTrap " << PURPLE << name << RESET << " is either " << RED << "dead " << RESET <<  "or " << ORANGE <<  "exhausted" << RESET << " !" << std::endl;
+		std::cout << "ClapTrap " << PURPLE << name << RESET << " can not perform this action right now as he is " << RED << "dead" << RESET << " or" << ORANGE << " exhausted ." << RESET << std::endl;
 }
 
 void	ClapTrap::takeDamage(unsigned int amount)
