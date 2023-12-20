@@ -3,12 +3,18 @@
 ScavTrap::ScavTrap()
 {
 	std::cout << PURPLE << "ScavTrap " << GREEN << "Default " << RESET << "constructor called !" << std::endl;
+	this->hitPoints = 100;
+	this->energyPoints = 50;
+	this->attackDamage = 20;
 }
 
 ScavTrap::ScavTrap(std::string name)
 {
 	std::cout << PURPLE << "ScavTrap " << GREEN << "Parametrized " << RESET << "constructor called !" << std::endl;
 	this->name = name;
+	this->hitPoints = 100;
+	this->energyPoints = 50;
+	this->attackDamage = 20;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &obj)

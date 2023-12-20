@@ -3,12 +3,18 @@
 FragTrap::FragTrap()
 {
 	std::cout << PURPLE << "FragTrap " << GREEN << "Default " << RESET << "constructor called !" << std::endl;
+	this->hitPoints = 100;
+	this->energyPoints = 100;
+	this->attackDamage = 30;
 }
 
 FragTrap::FragTrap(std::string name)
 {
 	std::cout << PURPLE << "FragTrap " << GREEN << "Parametrized " << RESET << "constructor called !" << std::endl;
 	this->name = name;
+	this->hitPoints = 100;
+	this->energyPoints = 100;
+	this->attackDamage = 30;
 }
 
 FragTrap::FragTrap(const FragTrap &obj)
