@@ -5,8 +5,8 @@ ClapTrap::ClapTrap()
 	std::cout << PURPLE << "ClapTrap " << GREEN << "Default " << RESET << "constructor called !" << std::endl;
 	this->name = "Benito";
 	this->hitPoints = 100;
-	this->energyPoints = 50;
-	this->attackDamage = 20;
+	this->energyPoints = 100;
+	this->attackDamage = 30;
 }
 
 ClapTrap::ClapTrap(std::string name)
@@ -14,8 +14,8 @@ ClapTrap::ClapTrap(std::string name)
 	std::cout << PURPLE << "ClapTrap " << GREEN << "Parametrized " << RESET << "constructor called !" << std::endl;
 	this->name = name;
 	this->hitPoints = 100;
-	this->energyPoints = 50;
-	this->attackDamage = 20;
+	this->energyPoints = 100;
+	this->attackDamage = 30;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &obj)
