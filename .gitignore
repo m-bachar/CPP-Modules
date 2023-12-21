@@ -34,8 +34,10 @@
 # Others
 .DS_Store
 .vscode/
+
 CPP-00/ex00/megaphone
 CPP-00/ex01/phonebook
+
 CPP-01/ex00/Zombie
 CPP-01/ex01/Zombie
 CPP-01/ex02/pewpew
@@ -44,9 +46,16 @@ CPP-01/ex04/Replace
 CPP-01/ex04/*.replace
 CPP-01/ex05/Harl
 CPP-01/ex06/harlFilter
+
 CPP-02/ex00/Fixed
 CPP-02/ex01/Fixed
 CPP-02/ex02/Fixed
+
 CPP-03/ex00/ClapTrap
 CPP-03/ex01/ScavTrap
-CPP-04/ex02/FragTrap
+CPP-03/ex02/FragTrap
+
+CPP-04/ex00/Animal
+CPP-04/ex01/Brain
+CPP-04/ex02/Animal
+CPP-04/ex03/Brain
