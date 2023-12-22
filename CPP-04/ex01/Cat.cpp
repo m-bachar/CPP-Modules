@@ -2,8 +2,9 @@
 
 Cat::Cat()
 {
-	std::cout << GREEN << "Cat " << RESET << "default constructor called !" << std::endl;
+	std::cout << GREEN << " * Cat " << RESET << "default constructor called !" << std::endl;
 	type = "Cat";
+	brain = new Brain();
 }
 
 Cat::Cat(const Cat &obj)
@@ -19,10 +20,11 @@ Cat	&Cat::operator=(const Cat &obj)
 
 void	Cat::makeSound() const
 {
-	std::cout << PURPLE << getType() << RESET << " : Meeeeoooowww !" << std::endl;
+	std::cout << PURPLE << " * " << getType() << RESET << " : Meeeeoooowww !" << std::endl;
 }
 
 Cat::~Cat()
 {
-	std::cout << RED << "Cat " << RESET << "destructor called !" << std::endl;
+	std::cout << RED << " * Cat " << RESET << "destructor called !" << std::endl;
+	delete brain;
 }

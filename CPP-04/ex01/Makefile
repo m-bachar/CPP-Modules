@@ -1,4 +1,4 @@
-BRAIN		=	Brain
+ANIMAL		=	Animal
 
 CPP			=	c++
 
@@ -8,19 +8,21 @@ SRC			=	main.cpp \
 				Animal.cpp \
 				Dog.cpp \
 				Cat.cpp \
-				Brain.cpp
+				WrongAnimal.cpp \
+				WrongCat.cpp
 
 INCLUDE1	=	Animal.hpp
 INCLUDE2	=	Dog.hpp
 INCLUDE3	=	Cat.hpp
-INCLUDE4	=	Brain.hpp
+INCLUDE4	=	WrongAnimal.hpp
+INCLUDE5	=	WrongCat.hpp
 
-all: $(BRAIN)
+all: $(ANIMAL)
 
-$(BRAIN)	: $(SRC) $(INCLUDE1) $(INCLUDE2) $(INCLUDE3) $(INCLUDE4)
-	$(CPP) $(CPPFLAGS) $(SRC) -o $(BRAIN)
+$(ANIMAL)	: $(SRC) $(INCLUDE1) $(INCLUDE2) $(INCLUDE3) $(INCLUDE4) $(INCLUDE5)
+	$(CPP) $(CPPFLAGS) $(SRC) -o $(ANIMAL)
 
 clean		:
-	rm -fr $(BRAIN)
+	rm -fr $(ANIMAL)
 
 re			: clean all

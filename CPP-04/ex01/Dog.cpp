@@ -2,8 +2,9 @@
 
 Dog::Dog()
 {
-	std::cout << GREEN << "Dog " << RESET << "default constructor called !" << std::endl;
+	std::cout << GREEN << " * Dog " << RESET << "default constructor called !" << std::endl;
 	type = "Dog";
+	brain = new Brain();
 }
 
 Dog::Dog(const Dog &obj)
@@ -19,10 +20,11 @@ Dog	&Dog::operator=(const Dog &obj)
 
 void	Dog::makeSound() const
 {
-	std::cout << PURPLE << getType() << RESET << " : Woof Woof !" << std::endl;
+	std::cout << PURPLE << " * " << getType() << RESET << " : Woof Woof !" << std::endl;
 }
 
 Dog::~Dog()
 {
-	std::cout << RED << "Dog " << RESET << "destructor called !" << std::endl;
+	std::cout << RED << " * Dog " << RESET << "destructor called !" << std::endl;
+	delete brain;
 }

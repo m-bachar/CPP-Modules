@@ -2,7 +2,7 @@
 
 Animal::Animal()
 {
-	std::cout << GREEN << "Animal " << RESET << "default constructor called !" << std::endl;
+	std::cout << GREEN << " * Animal " << RESET << "default constructor called !" << std::endl;
 	type = "Animal";
 }
 
@@ -19,7 +19,7 @@ Animal	&Animal::operator=(const Animal &obj)
 
 void	Animal::makeSound() const
 {
-	std::cout << PURPLE << type << RESET << " : Pkheeew !" << std::endl;
+	std::cout << PURPLE << " * " << getType() << RESET << " : Pkheeew !" << std::endl;
 }
 
 std::string	Animal::getType() const
@@ -29,5 +29,5 @@ std::string	Animal::getType() const
 
 Animal::~Animal()
 {
-	std::cout << RED << "Animal " << RESET << "destructor called !" << std::endl;
+	std::cout << RED << " * Animal " << RESET << "destructor called !" << std::endl;
 }
