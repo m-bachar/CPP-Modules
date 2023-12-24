@@ -9,7 +9,7 @@ int main()
 	Animal* meta = new Animal();
 	Animal* j = new Dog();
 	Animal* i = new Cat();
-	WrongAnimal* k = new WrongAnimal();
+	WrongAnimal* k = new WrongCat();
 	WrongCat* l = new WrongCat();
 
 	std::cout << j->getType() << " " << std::endl;

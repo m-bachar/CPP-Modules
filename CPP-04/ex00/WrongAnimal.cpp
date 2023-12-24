@@ -24,7 +24,7 @@ WrongAnimal	&WrongAnimal::operator=(const WrongAnimal &obj)
 
 void	WrongAnimal::makeSound()
 {
-	std::cout << PURPLE << " * " << getType() << RESET << " : Moghoowwww !" << std::endl;
+	std::cout << PURPLE << " * " << getType() << RESET << " : Moghoowwww ! (WrongAnimal) ... " << std::endl;
 }
 
 WrongAnimal::~WrongAnimal()

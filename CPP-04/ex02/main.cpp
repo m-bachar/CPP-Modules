@@ -12,6 +12,8 @@ void	func()
 int main()
 {
 	atexit(func);
+	Animal	*animalito;
+	// Animal	animalitoo;
 	Animal	*animalo[N];
 	int		i = 0;
 

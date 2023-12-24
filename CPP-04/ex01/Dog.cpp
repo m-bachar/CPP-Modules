@@ -10,11 +10,13 @@ Dog::Dog()
 Dog::Dog(const Dog &obj)
 {
 	this->type = obj.type;
+	this->brain = new Brain();
 }
 
 Dog	&Dog::operator=(const Dog &obj)
 {
 	this->type = obj.type;
+	this->brain = new Brain();
 	return *this;
 }
 

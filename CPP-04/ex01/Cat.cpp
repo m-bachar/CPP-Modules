@@ -10,11 +10,13 @@ Cat::Cat()
 Cat::Cat(const Cat &obj)
 {
 	this->type = obj.type;
+	this->brain = new Brain();
 }
 
 Cat	&Cat::operator=(const Cat &obj)
 {
 	this->type = obj.type;
+	this->brain = new Brain();
 	return *this;
 }
 

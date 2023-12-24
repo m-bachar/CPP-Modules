@@ -19,7 +19,7 @@ WrongCat	&WrongCat::operator=(const WrongCat &obj)
 
 void	WrongCat::makeSound()
 {
-	std::cout << PURPLE << " * " << getType() << RESET << " : Mogheewwww !" << std::endl;
+	std::cout << PURPLE << " * " << getType() << RESET << " : Mogheewwww ! (WrongCat) ... " << std::endl;
 }
 
 WrongCat::~WrongCat()

@@ -7,8 +7,8 @@
 # define	RED		"\x1b[1;31m"
 # define	ORANGE	"\x1b[1;38;5;208m"
 # define	PURPLE	"\x1b[1;38;5;93m"
-# define	N		10
 
+# define	N		10
 
 class Dog;
 class Cat;
@@ -21,7 +21,7 @@ class Animal
 		Animal();
 		Animal(const Animal &obj);
 		Animal			&operator=(const Animal &obj);
-		virtual	void	makeSound() const;
+		virtual	void	makeSound() const = 0;
 		std::string		getType() const;
 		virtual ~Animal();
 };
