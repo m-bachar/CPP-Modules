@@ -22,9 +22,9 @@ WrongAnimal	&WrongAnimal::operator=(const WrongAnimal &obj)
 	return *this;
 }
 
-void	WrongAnimal::makeSound()
+void	WrongAnimal::makeSound() const 
 {
-	std::cout << PURPLE << " * " << getType() << RESET << " : Moghoowwww !" << std::endl;
+	std::cout << PURPLE << " * " << type << RESET << " : Moghoowwww !" << std::endl;
 }
 
 WrongAnimal::~WrongAnimal()

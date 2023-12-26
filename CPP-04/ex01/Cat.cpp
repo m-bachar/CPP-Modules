@@ -9,14 +9,17 @@ Cat::Cat()
 
 Cat::Cat(const Cat &obj)
 {
-	this->type = obj.type;
-	this->brain = new Brain();
+	*this = obj;
 }
 
 Cat	&Cat::operator=(const Cat &obj)
 {
 	this->type = obj.type;
+	if (this->brain)
+		delete this->brain;
 	this->brain = new Brain();
+	for (size_t i = 0; i < 100; i++)
+		this->brain[i] = obj.brain[i];
 	return *this;
 }
 
@@ -28,5 +31,6 @@ void	Cat::makeSound() const
 Cat::~Cat()
 {
 	std::cout << RED << " * Cat " << RESET << "destructor called !" << std::endl;
-	delete brain;
+	if (brain)
+		delete brain;
 }

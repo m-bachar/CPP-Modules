@@ -8,9 +8,6 @@
 # define	ORANGE	"\x1b[1;38;5;208m"
 # define	PURPLE	"\x1b[1;38;5;93m"
 
-class Dog;
-class Cat;
-
 class Animal
 {
 	protected:

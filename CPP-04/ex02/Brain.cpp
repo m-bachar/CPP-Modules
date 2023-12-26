@@ -3,17 +3,18 @@
 Brain::Brain()
 {
 	std::cout << GREEN << " * Brain " << RESET << "default constructor called !" << std::endl;
+	for (int i = 0 ; i < 100 ; i++)
+        this->ideas[i] = "No Idea";
 }
 
 Brain::Brain(const Brain &obj)
 {
-	for (size_t i = 0; i < std::strlen(ideas->c_str()); i++)
-		this->ideas[i] = obj.ideas[i];	
+    *this = obj;
 }
 
 Brain	&Brain::operator=(const Brain &obj)
 {
-	for (size_t i = 0; i < std::strlen(ideas->c_str()); i++)
+	for (size_t i = 0; i < 100; i++)
 		this->ideas[i] = obj.ideas[i];
 	return *this;
 }

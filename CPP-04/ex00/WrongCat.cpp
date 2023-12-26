@@ -17,9 +17,9 @@ WrongCat	&WrongCat::operator=(const WrongCat &obj)
 	return *this;
 }
 
-void	WrongCat::makeSound()
+void	WrongCat::makeSound() const
 {
-	std::cout << PURPLE << " * " << getType() << RESET << " : Mogheewwww ! (WrongCat) ... " << std::endl;
+	std::cout << PURPLE << " * " << type << RESET << " : Mogheewwww ! (WrongCat) ... " << std::endl;
 }
 
 WrongCat::~WrongCat()

@@ -8,8 +8,6 @@
 # define	ORANGE	"\x1b[1;38;5;208m"
 # define	PURPLE	"\x1b[1;38;5;93m"
 
-class WrongCat;
-
 class WrongAnimal
 {
 	protected:
@@ -19,6 +17,6 @@ class WrongAnimal
 		WrongAnimal(const WrongAnimal &obj);
 		WrongAnimal	&operator=(const WrongAnimal &obj);
 		std::string	getType();
-		void	makeSound();
+		void	makeSound() const;
 		~WrongAnimal();
 };

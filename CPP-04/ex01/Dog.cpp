@@ -9,14 +9,17 @@ Dog::Dog()
 
 Dog::Dog(const Dog &obj)
 {
-	this->type = obj.type;
-	this->brain = new Brain();
+	*this = obj;
 }
 
 Dog	&Dog::operator=(const Dog &obj)
 {
 	this->type = obj.type;
+	if (this->brain)
+		delete this->brain;
 	this->brain = new Brain();
+	for (size_t i = 0; i < 100; i++)
+		this->brain[i] = obj.brain[i];
 	return *this;
 }
 
@@ -28,5 +31,6 @@ void	Dog::makeSound() const
 Dog::~Dog()
 {
 	std::cout << RED << " * Dog " << RESET << "destructor called !" << std::endl;
+	if (brain)
 	delete brain;
 }
