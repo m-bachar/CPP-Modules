@@ -2,12 +2,15 @@
 
 #include <iostream>
 #include <exception>
+#include "Form.hpp"
 
 # define	RESET	"\x1b[0m"
 # define	GREEN	"\x1b[1;32m"
 # define	RED		"\x1b[1;31m"
 # define	ORANGE	"\x1b[1;38;5;208m"
 # define	PURPLE	"\x1b[1;38;5;93m"
+
+class Form;
 
 class Bureaucrat
 {
@@ -25,14 +28,14 @@ class Bureaucrat
 		void		decrementGrade();
 		class GradeTooHighException: public std::exception
 		{
-			public:
-				const char	*what() const throw();
+			const char	*what() const throw();
 		};
 		class GradeTooLowException: public std::exception
 		{
 			public:
 				const char	*what() const throw();
 		};
+		void	signForm(Form &obj);
 		~Bureaucrat();
 };
 
