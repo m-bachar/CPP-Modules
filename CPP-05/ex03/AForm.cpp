@@ -1,66 +1,66 @@
-#include "Form.hpp"
+#include "AForm.hpp"
 
-Form::Form() : name("Benito"), sign(false), signGrade(5), executeGrade(5)
+AForm::AForm() : name("Benito"), sign(false), signGrade(145), executeGrade(137)
 {
-	std::cout << GREEN << " * Form " << RESET << "default constructor called !" << std::endl;
+	std::cout << GREEN << " * AForm " << RESET << "default constructor called !" << std::endl;
 	if (signGrade > 150)
 		throw GradeTooLowException();
 	else if (signGrade < 1)
 		throw GradeTooHighException();
 }
 
-Form::Form(std::string namee, bool signn, int signGradee, int executeGradee) : name(namee), sign(signn), signGrade(signGradee), executeGrade(executeGradee)
+AForm::AForm(std::string namee, bool signn, int signGradee, int executeGradee) : name(namee), sign(signn), signGrade(signGradee), executeGrade(executeGradee)
 {
-	std::cout << GREEN << " * Form " << RESET << "parametrized constructor called !" << std::endl;
+	std::cout << GREEN << " * AForm " << RESET << "parametrized constructor called !" << std::endl;
 	if (signGrade > 150)
 		throw GradeTooLowException();
 	else if (signGrade < 1)
 		throw GradeTooHighException();
 }
 
-Form::Form(const Form &obj) : signGrade(obj.signGrade), executeGrade(obj.executeGrade)
+AForm::AForm(const AForm &obj) : signGrade(obj.signGrade), executeGrade(obj.executeGrade)
 {
 	*this = obj;
 }
 
-Form	&Form::operator=(const Form &obj)
+AForm	&AForm::operator=(const AForm &obj)
 {
 	(std::string)this->name = obj.name;
 	this->sign = obj.sign;
 	return *this;
 }
 
-std::string	Form::getName()
+std::string	AForm::getName() const
 {
 	return name;
 }
 
-bool	Form::getSign()
+bool AForm::getSign() const
 {
 	return sign;
 }
 
-int	Form::getSignGrade()
+int	AForm::getSignGrade() const
 {
 	return signGrade;
 }
 
-int Form::getExecuteGrade()
+int AForm::getExecuteGrade() const
 {
 	return executeGrade;
 }
 
-const char*	Form::GradeTooLowException::what() const throw()
+const char*	AForm::GradeTooLowException::what() const throw()
 {
 	return "grade too low";
 }
 
-const char*	Form::GradeTooHighException::what() const throw()
+const char*	AForm::GradeTooHighException::what() const throw()
 {
 	return "grade too high";
 }
 
-void	Form::beSigned(Bureaucrat &obj)
+void	AForm::beSigned(Bureaucrat &obj)
 {
 	if (obj.getGrade() < getSignGrade())
 		sign = true;
@@ -68,12 +68,12 @@ void	Form::beSigned(Bureaucrat &obj)
 		throw GradeTooLowException();
 }
 
-Form::~Form()
+AForm::~AForm()
 {
-	std::cout << RED << " * Form " << RESET << "destructor called !" << std::endl;
+	std::cout << RED << " * AForm " << RESET << "destructor called !" << std::endl;
 }
 
-std::ostream	&operator<<(std::ostream &os, Form &obj)
+std::ostream	&operator<<(std::ostream &os, AForm &obj)
 {
 	std::cout << PURPLE << " * Name\t\t : " << RESET << obj.getName() << std::endl;
 	if (obj.getSign() == true)

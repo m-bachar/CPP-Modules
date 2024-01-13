@@ -27,12 +27,12 @@ Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &obj)
 	return *this;
 }
 
-std::string	Bureaucrat::getName()
+std::string	Bureaucrat::getName() const
 {
 	return (name);
 }
 
-int	Bureaucrat::getGrade()
+int	Bureaucrat::getGrade() const
 {
 	return (grade);
 }
@@ -51,7 +51,7 @@ void	Bureaucrat::decrementGrade()
 		throw GradeTooLowException();
 }
 
-void	Bureaucrat::signForm(Form &obj)
+void	Bureaucrat::signForm(AForm &obj)
 {
 	if (getGrade() <= obj.getSignGrade())
 		std::cout << PURPLE << " * " << getName() << RESET << " signed " << GREEN << obj.getName() << RESET << std::endl;
@@ -72,6 +72,17 @@ const char *Bureaucrat::GradeTooHighException::what() const throw()
 const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
 	return "grade too low.";
+}
+
+void	Bureaucrat::executeForm(AForm const & form)
+{
+	try {
+		form.execute(*this);
+		std::cout << GREEN << " * " << getName() << RESET << " executed " << GREEN << form.getName() << RESET << std::endl;
+	}
+	catch (std::exception &e) {
+		std::cout << RED << " * " << getName() << RESET << " could not execute " << RED << form.getName() << RESET << std::endl;
+	}
 }
 
 std::ostream	&operator<<(std::ostream &os, Bureaucrat &obj)

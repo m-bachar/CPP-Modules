@@ -4,17 +4,19 @@ CPP			=	c++
 
 CPPFLAGS	=	-Wall -Wextra -Werror -std=c++98
 
-SRC			=	main.cpp \
-				Bureaucrat.cpp
+SRC			=	Bureaucrat.cpp \
+				main.cpp
 
-INCLUDE		=	Bureaucrat.hpp
+INCLUDES	=	Bureaucrat.hpp
 
 all: $(BUREAUCRAT)
 
-$(BUREAUCRAT)	: $(SRC) $(INCLUDE)
-	$(CPP) $(CPPFLAGS) $(SRC) -o $(BUREAUCRAT)
+$(BUREAUCRAT):	$(SRC) $(INCLUDES)
+	$(CPP) $(SRC) $(CPPFLAGS) -o $(BUREAUCRAT)
 
-clean		:
+clean:
 	rm -fr $(BUREAUCRAT)
 
-re			: clean all
+fclean: clean
+
+re: fclean all

@@ -3,16 +3,13 @@
 
 int main()
 {
-	Bureaucrat a(6);
-	Form c("Registration", 0);
-	try
-	{
-		c.beSigned(a);
+	try {
+		Bureaucrat a("Benito", 6);
+		Form b("Formax", true, 5, 0);
+		std::cout << a;
+		a.signForm(b);
 	}
-	catch(const std::exception& e)
-	{
-		std::cerr << RED << " * Error :" << RESET << e.what() << '\n';
+	catch (std::exception &e) {
+		std::cout << RED << " * Error : " << RESET << e.what() << std::endl;
 	}
-	a.signForm(c);
-	std::cout << c;
 }
