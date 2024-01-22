@@ -1,22 +1,21 @@
-SCALARCONVERTER	=	ScalarConverter
+CONVERT		=	convert
 
-CC				=	cc
+CPP			=	c++
 
-CPPFLAGS		=	-Wall -Wextra -Werror -std=c++98
+CPPFLAGS	=	-Wall -Wextra -Werror -std=c++98
 
-SRC				=	ScalarConverter.cpp \
-					main.cpp
+SRC			=	ScalarConverter.cpp \
+				main.cpp
 
-INCLUDES		=	ScalarConverter.hpp
+INCLUDES	=	ScalarConverter.hpp
 
+all: $(CONVERT)
 
-all: $(SCALARCONVERTER)
-
-$(SCALARCONVERTER): $(SRC) $(INCLUDES)
-	$(CPP) $(SRC) $(CPPFLAGS) -o $(SCALARCONVERTER)
+$(CONVERT):	$(SRC) $(INCLUDES)
+	$(CPP) $(SRC) $(CPPFLAGS) -o $(CONVERT)
 
 clean:
-	rm -fr $(SCALARCONVERTER)
+	rm -fr $(CONVERT)
 
 fclean: clean
 

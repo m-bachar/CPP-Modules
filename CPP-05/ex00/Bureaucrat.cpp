@@ -22,8 +22,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &obj)
 
 Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &obj)
 {
-	(std::string)name = obj.name;
-	grade = obj.grade;
+	Bureaucrat(obj.name, obj.grade);
 	return *this;
 }
 

@@ -25,8 +25,7 @@ Form::Form(const Form &obj) : signGrade(obj.signGrade), executeGrade(obj.execute
 
 Form	&Form::operator=(const Form &obj)
 {
-	(std::string)this->name = obj.name;
-	this->sign = obj.sign;
+	Form(obj.name, obj.sign, obj.signGrade, obj.executeGrade);
 	return *this;
 }
 
