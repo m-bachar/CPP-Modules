@@ -14,6 +14,5 @@ int main()
 	identify(z);
 	delete &z;
 
-	Base a;
 	return 0;
 }

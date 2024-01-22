@@ -78,7 +78,7 @@ void	int_parsing(std::string input)
 	}
 	for (size_t i = 0; i < input.length(); i++)
 	{
-		if (!std::isdigit(input[i]) && (input[0] != '+' || input[0] != '-') && input[input.length() - 1] != 'f' && input[i] != '.')
+		if (!std::isdigit(input[i]) && input[0] != '+' && input[0] != '-' && input[input.length() - 1] != 'f' && input[i] != '.')
 		{
 			isdigit = false;
 			break;
@@ -134,7 +134,7 @@ void	float_parsing(std::string input)
 	}
 	for (size_t i = 0; i < input.length(); i++)
 	{
-		if (!std::isdigit(input[i]) && (input[0] != '+' || input[0] != '-') && input[input.length() - 1] != 'f' && input[i] != '.')
+		if (!std::isdigit(input[i]) && input[0] != '+' && input[0] != '-' && input[input.length() - 1] != 'f' && input[i] != '.')
 		{
 			isdigit = false;
 			break;
@@ -194,7 +194,7 @@ void	double_parsing(std::string input)
 	}
 	for (size_t i = 0; i < input.length(); i++)
 	{
-		if (!std::isdigit(input[i]) && (input[0] != '+' || input[0] != '-') && input[input.length() - 1] != 'f' && input[i] != '.')
+		if (!std::isdigit(input[i]) && input[0] != '+' && input[0] != '-' && input[input.length() - 1] != 'f' && input[i] != '.')
 		{
 			isdigit = false;
 			break;
