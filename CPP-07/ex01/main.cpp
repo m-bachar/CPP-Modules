@@ -10,6 +10,6 @@ int main()
 {
 	std::string x = "hello world";
 	std::cout << PURPLE << " * Before ::iter : " << RESET << x << std::endl;
-	::iter(x, -1, moghew);
+	::iter(x, x.length(), moghew);
 	std::cout << PURPLE << " * After  ::iter : " << RESET << x << std::endl;
 }
