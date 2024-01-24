@@ -10,6 +10,6 @@ int main()
 {
 	std::string x = "hello world";
 	std::cout << PURPLE << " * Before ::iter : " << RESET << x << std::endl;
-	::iter(x, x.length(), moghew);
+	::iter(x, x.length(), moghew); // if (len == -1) === u gay :D
 	std::cout << PURPLE << " * After  ::iter : " << RESET << x << std::endl;
 }

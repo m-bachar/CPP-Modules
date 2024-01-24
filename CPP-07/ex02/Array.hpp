@@ -20,7 +20,7 @@ class Array
 		Array()
 		{
 			std::cout << GREEN << " * Array " << RESET << "default constructor called !" << std::endl;
-			if (N > 0)
+			if (N <= 0)
 			{
 				std::cout << RED << " * Error " << RESET << "size must be greater than 0." << std::endl;
 				return;
