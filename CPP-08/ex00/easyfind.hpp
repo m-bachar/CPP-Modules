@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <array>
+#include <vector>
 #include <list>
 #include <iterator>
 
@@ -25,11 +25,10 @@ class OccurenceNotFoundException : public std::exception
 template <typename T>
 int	easyfind(T x, int y)
 {
-	std::array<char, N>::iterator i;
-	for (i = x.begin(); i < x.end(); i++)
-	{
-		if (*i == y)
-			return y;
-	}
-	throw OccurenceNotFoundException();
+    std::vector<int>::iterator it = std::find(std::begin(x), std::end(x), y);
+ 
+    if (it != std::end(x))
+		return *it;
+	else
+		throw OccurenceNotFoundException();
 }

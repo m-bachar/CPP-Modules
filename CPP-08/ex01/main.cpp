@@ -4,8 +4,14 @@ int main()
 {
 	try {
 		Span sp = Span(N);
+		std::list<int> container;
 
-		sp.burn_the_cpu_or_u_gay();
+		container.push_back(5);
+		container.push_back(-1);
+		container.push_back(2);
+		container.push_back(9);
+		container.push_back(0);
+		sp.addNumbers(container);
 
 		std::cout << sp.shortestSpan() << std::endl;
 		std::cout << sp.longestSpan() << std::endl;

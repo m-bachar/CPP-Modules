@@ -10,7 +10,7 @@
 # define	ORANGE	"\x1b[1;38;5;208m"
 # define	PURPLE	"\x1b[1;38;5;93m"
 
-#define N 10000
+#define N 5
 
 class Span
 {
@@ -70,7 +70,20 @@ class Span
 				throw NoElementsFoundException();
 
 			lst.sort();
-			return lst.front() - 1;
+			std::list<int>::iterator it = lst.begin();
+			std::list<int>::iterator it_ = lst.begin();
+			it_++;
+			int diff = *it_ - *it;
+			it_ = lst.begin();
+			for (it_++; it_ != lst.end(); it_++)
+			{
+				std::distance(lst.begin(), it);
+				std::distance(lst.begin(), it_);
+				if (*it_ - *it < diff)
+					diff = *it_ - *it;
+				it++;
+			}
+			return diff;
 		}
 		int	longestSpan()
 		{
@@ -80,14 +93,9 @@ class Span
 			lst.sort();
 			return lst.back() - lst.front();
 		}
-		void	burn_the_cpu_or_u_gay()
+		void	addNumbers(std::list<int> cont)
 		{
-			srand(time(NULL));
-			for (int i = 0; i < N; i++)
-			{
-				int nbr = rand();
-				addNumber(nbr);
-			}
+			lst.insert(lst.begin(), cont.begin(), cont.end());
 		}
 		~Span()
 		{

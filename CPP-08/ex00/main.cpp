@@ -2,13 +2,24 @@
 
 int main()
 {
-	/*	Arrays	*/
-	std::array<char, N> arr = {97, 98, 99, 100, 101, 102, 103, 104, 105, 106};
-	std::array<char, N>::iterator it;
+	/*	Vector	*/
+	std::vector<int> arr;
+	arr.push_back(106);
+	arr.push_back(105);
+	arr.push_back(104);
+	arr.push_back(103);
+	arr.push_back(102);
+	arr.push_back(101);
+	arr.push_back(100);
+	arr.push_back(99);
+	arr.push_back(98);
+	arr.push_back(97);
+	arr.push_back(96);
+	std::vector<int>::iterator it;
 
-	std::cout << GREEN << " * Array : " << RESET;
+	std::cout << GREEN << " * Vector : " << RESET;
 	for (it = arr.begin(); it < arr.end(); it++)
-		std::cout << static_cast<char>(*it) << " ";
+		std::cout << static_cast<int>(*it) << " ";
 	std::cout << std::endl;
 	try
 	{
@@ -20,8 +31,8 @@ int main()
 	}
 
 	/*	Lists	*/
-	std::list<char> lst;
-	std::list<char>::iterator it_;
+	std::list<int> lst;
+	std::list<int>::iterator it_;
 
 	for (int i = 97; i < 107; i++)
 		lst.push_back(i);
