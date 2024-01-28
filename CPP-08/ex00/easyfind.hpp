@@ -4,6 +4,7 @@
 #include <vector>
 #include <list>
 #include <iterator>
+#include <algorithm>
 
 # define	RESET	"\x1b[0m"
 # define	GREEN	"\x1b[1;32m"
@@ -25,9 +26,9 @@ class OccurenceNotFoundException : public std::exception
 template <typename T>
 int	easyfind(T x, int y)
 {
-    std::vector<char>::iterator it = std::find(std::begin(x), std::end(x), y);
+    std::vector<char>::iterator it = std::find(x.begin(), x.end(), y);
  
-    if (it != std::end(x))
+    if (it != x.end())
 		return *it;
 	else
 		throw OccurenceNotFoundException();

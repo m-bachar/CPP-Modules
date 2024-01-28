@@ -13,7 +13,7 @@ int main()
 	std::cout << std::endl;
 	try
 	{
-		std::cout << static_cast<char>(::easyfind(vectora, -108)) << std::endl;
+		std::cout << static_cast<char>(::easyfind(vectora, 102)) << std::endl;
 	}
 	catch(const std::exception& e)
 	{
