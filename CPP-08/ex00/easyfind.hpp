@@ -25,7 +25,7 @@ class OccurenceNotFoundException : public std::exception
 template <typename T>
 int	easyfind(T x, int y)
 {
-    std::vector<int>::iterator it = std::find(std::begin(x), std::end(x), y);
+    std::vector<char>::iterator it = std::find(std::begin(x), std::end(x), y);
  
     if (it != std::end(x))
 		return *it;

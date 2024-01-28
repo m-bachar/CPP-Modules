@@ -24,6 +24,14 @@ class MutantStack : public std::stack<T, std::list<T> >
 		{
 			return this->c.end();
 		}
+		iterator	begin() const
+		{
+			return this->c.begin();
+		}
+		iterator	end() const
+		{
+			return this->c.end();
+		}
 		MutantStack()
 		{
 			std::cout << GREEN << " * MutantStack " << RESET << "default constructor called !" << std::endl;
