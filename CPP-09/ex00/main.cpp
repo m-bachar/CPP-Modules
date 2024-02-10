@@ -8,7 +8,7 @@ int main(int ac, char *av[])
 		return 1;
 	}
 	BitcoinExchange btc;
-	if (btc.readFile(av[1]))
+	if (btc.readFile(av[1], false))
 		return 1;
 	return 0;
 }

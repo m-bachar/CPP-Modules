@@ -15,15 +15,15 @@
 class BitcoinExchange
 {
 	private:
-		std::map<std::string, std::string>	input;
-		std::map<std::string, std::string>	db;
+		std::multimap<std::string, float>	input;
+		std::multimap<std::string, float>	db;
 		std::string							line;
 	public:
 		BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange &obj);
 		BitcoinExchange	&operator=(const BitcoinExchange &obj);
-		int		readFile(std::string filename);
-		void	parseLine(std::string line);
+		int		readFile(std::string filename, bool database);
+		void	parseLine(std::string line, bool database);
 		void	parseDateValue(std::string date, std::string value, int flag);
 		~BitcoinExchange();
 };
