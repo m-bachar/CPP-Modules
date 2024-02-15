@@ -4,6 +4,7 @@
 #include <stack>
 #include <iterator>
 #include <algorithm>
+#include <deque>
 
 # define	RESET	"\x1b[0m"
 # define	GREEN	"\x1b[1;32m"
@@ -15,10 +16,16 @@ class RPN
 {
 	private:
 		std::string	input;
+		std::deque<int> nbrs;
+		std::deque<std::string> ops;
 	public:
 		RPN();
+		RPN(std::string input);
 		RPN(const RPN &obj);
 		RPN	&operator=(const RPN &obj);
-		int	parse_input();
+		int		parse_input();
+		void	error();
+		int		fillAndParse();
+		int		mergeDeques();
 		~RPN();
 };
