@@ -1,9 +1,7 @@
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange()
-{
-	std::cout << GREEN << " * BitcoinExchange " << RESET << "default constructor called !" << std::endl;
-}
+{}
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &obj)
 {
@@ -12,96 +10,166 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &obj)
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &obj)
 {
-	line = obj.line;
+	db = obj.db;
+	date = obj.date;
+	value = obj.value;
+	year = obj.year;
+	month = obj.month;
+	day = obj.day;
 	return *this;
+}
+
+void	BitcoinExchange::error(std::string errorMessage)
+{
+	std::cout << RED << " * Error : " << RESET << errorMessage << std::endl;
 }
 
 int	BitcoinExchange::readFile(std::string filename, bool database)
 {
-	std::ifstream file(filename);
-	char	c;
+	std::ifstream	myFile(filename.c_str());
+	std::string		line;
 
-	if (!file.is_open()) {
-		std::cout << RED << " * Error : " << RESET << "unable to open or locate the file " << PURPLE << filename << RESET << "." << std::endl;
-		return 1;
+	if (!myFile)
+		error("unable to locate or open file.");
+	// Check if file is empty
+	while (std::getline(myFile, line)) {
+		if (parseLine(line, database))
+			return 1;
 	}
-	while (file.get(c)) {
-		if (c == '\n') {
-			parseLine(line, database);
-			line.clear();
-		}
-		else
-			line += c;
-	}
-	std::map<std::string, float>::iterator	it = input.begin();
-	while (it != input.end())
-	{
-		std::cout << GREEN << " * Key = " << RESET << it->first << GREEN << "\t* Value = " << RESET << it->second << std::endl;
-		it++;
-	}
-	
-	file.close();
 	return 0;
 }
 
-void	BitcoinExchange::parseLine(std::string line, bool database)
+int	BitcoinExchange::countSpace(std::string line)
 {
-	(void)database;
-	int	i = 0;
-	static int flag = 0;
-	std::string	date;
-	std::string	value;
-	if (database) {
-		date = line.substr(i, line.find(','));
-		i = line.find(',');
+	int	counter = 0;
+
+	for (size_t i = 0; i < line.length(); i++)
+	{
+		if (line[i] == ' ')
+			counter++;
 	}
-	else {
-		date = line.substr(i, line.find('|'));
-		i = line.find('|');
-	}
-	value = line.substr(i, line.find('\n'));
-	parseDateValue(date, value, flag);
-	flag++;
+	return counter;
 }
 
-void	BitcoinExchange::parseDateValue(std::string date, std::string value, int flag)
+int	BitcoinExchange::checkDigits(std::string str)
 {
-	bool	errors_flag = false;
-	if (flag == 0) {
-		if (date != "date " || value != "| value") {
-			std::cout << RED << " * Error : " << RESET << "date and value must be as follow (date | value)." << std::endl;
-			errors_flag = true;
+	for (size_t i = 0; i < str.length(); i++)
+		if (!std::isdigit(str[i]))
+			return 1;
+	return 0;
+}
+
+int	BitcoinExchange::parseDate(std::string date)
+{
+	size_t first_dash = date.find('-');
+	size_t second_dash = date.find('-');
+	if (first_dash == std::string::npos || second_dash == std::string::npos) {
+		error("date syntax must be as follow (yyyy-mm-dd).");
+		return 1;
+	}
+	year = date.substr(0, first_dash);
+	month = date.substr(first_dash + 1, second_dash - 2);
+	day = date.substr(date.find_last_of('-') + 1, date.length() - date.find_last_of('-'));
+	if (checkDigits(year) || checkDigits(month) || checkDigits(day)) {
+		error("year, month and day must have only digits.");
+		return 1;
+	}
+	if (date < "2009-01-02") { // To be continued ...
+		error("date is out of range.");
+		return 1;
+	}
+	if (std::atoi(month.c_str()) > 12 || std::atoi(month.c_str()) <= 0 || std::atoi(day.c_str()) > 30 || std::atoi(day.c_str()) <= 0) {
+		error("month must be between (1 - 12) and day must be between (1 - 30).");
+		return 1;
+	}
+	return 0;
+}
+
+int	BitcoinExchange::parseValue(std::string value)
+{
+	int	dots_counter = 0;
+	// Counting dots in the value
+	for (size_t i = 0; i < value.length(); i++)
+		if (value[i] == '.')
+			dots_counter++;
+	if (dots_counter > 1) {
+		error("number of (.) must be only one for a float number.");
+		return 1;
+	}
+	// Checking float syntax
+	for (size_t i = 0; i < value.length(); i++) {
+		if (value[i] == '.' && (!std::isdigit(value[i - 1]) || !std::isdigit(value[i + 1]))) {
+			error("float syntax should be as follow (x.y)");
+			return 1;
 		}
 	}
-	else {
-		if (date < "2009-01-02" || date > "2022-03-29") {
-			std::cout << RED << " * Error : " << RESET << "date " << date << "is out of range." << std::endl;
-			errors_flag = true;
+	// Checking if value has a different character other than digits
+	for (size_t i = 1; i < value.length(); i++)
+	{
+		if (value[0] != '+' && value[0] != '-' && !std::isdigit(value[0])) {
+			error("value should only contain digits.");
+			return 1;
 		}
-		std::string	value_sub = value.substr(value.find_first_of(' ') + 1, value.find_last_of('\n'));
-		int	dot_counter = 0;
-		for (size_t i = 0; i < value_sub.length(); i++) {
-			if (value_sub[0] == '-' || value_sub[0] == '+')
-				i++;
-			if (value_sub[i] == '.')
-				dot_counter++;
-			if ((!std::isdigit(value_sub[i]) && value_sub[i] != '.') || dot_counter > 1) {
-				std::cout << RED << " * Error : " << RESET << value_sub << " not a digit." << std::endl;
-				errors_flag = true;
-				break;
+		if (!std::isdigit(value[i]) && value[i] != '.') {
+			error("value should only contain digits.");
+			return 1;
+		}
+	}
+	// Check if value is < 0 or > 1000
+	if (std::atof(value.c_str()) < 0 || std::atof(value.c_str()) > 1000) {
+		error("value must be between (0 - 1000)");
+		return 1;
+	}
+	return 0;
+}
+
+int	BitcoinExchange::parseLine(std::string line, bool database)
+{
+	static int flag = 0;
+	// database == false ==> Parsing input file 
+	if (database == false) {
+		int	space_count = countSpace(line);
+		size_t pipe_pos = line.find(" | ");
+		if (pipe_pos == std::string::npos || space_count != 2) {
+			error("syntax should be as follow (date | value).");
+			return 0;
+		}
+		date = line.substr(0, pipe_pos);
+		value = line.substr(pipe_pos + 3, line.length() - pipe_pos);
+		// flag == 0 ==> Parsing first line in the input file
+		if (flag == 0) {
+			if (date != "date" || value != "value") {
+				error("syntax should be as follow (date | value).");
+				return 1;
 			}
+			flag = 1;
+			return 0;
 		}
-		if (std::atof(value_sub.c_str()) < 0 || std::atof(value_sub.c_str()) > 1000) {
-			std::cout << RED << " * Error : " << RESET << value_sub << " must be between (0 - 1000)." << std::endl;
-			errors_flag = true;
+		// flag != 0 ==> Parsing other lines in the input file
+		if (flag) {
+			if (parseDate(date) || parseValue(value))
+				return 0;
 		}
-		if (errors_flag == false) {
-			input.insert(std::make_pair(date, std::atof(value_sub.c_str())));
-		}
+		std::multimap<std::string, float>::iterator	head = db.begin();
+		std::multimap<std::string, float>::iterator	it = db.lower_bound(date);
+		if (head->first < it->first)
+			it--;
+		std::cout << GREEN << " * " << date << RESET << " ==> " << value << " * " << it->second << " = " << std::atof(value.c_str()) * it->second << std::endl;
+		
 	}
+	// database == true ==> Parsing .csv file
+	if (database == true) {
+		size_t del_pos = line.find(",");
+		if (del_pos == std::string::npos) {
+			error("syntax should be as follow (date,value).");
+			return 0;
+		}
+		date = line.substr(0, del_pos);
+		value = line.substr(del_pos + 1, line.length() - del_pos);
+		db.insert(std::make_pair(date, std::atof(value.c_str())));
+	}
+	return 0;
 }
 
 BitcoinExchange::~BitcoinExchange()
-{
-	std::cout << RED << " * BitcoinExchange " << RESET << "destructor called !" << std::endl;
-}
+{}
