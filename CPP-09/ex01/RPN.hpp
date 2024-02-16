@@ -17,15 +17,13 @@ class RPN
 	private:
 		std::string	input;
 		std::deque<int> nbrs;
-		std::deque<std::string> ops;
 	public:
 		RPN();
 		RPN(std::string input);
 		RPN(const RPN &obj);
 		RPN	&operator=(const RPN &obj);
-		int		parse_input();
 		void	error(std::string errorMessage);
+		int		parse_input();
 		int		fillAndParse();
-		int		mergeDeques();
 		~RPN();
 };

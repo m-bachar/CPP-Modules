@@ -17,7 +17,6 @@ RPN	&RPN::operator=(RPN const &obj)
 {
 	input = obj.input;
 	nbrs = obj.nbrs;
-	ops = obj.ops;
 	return *this;
 }
 
@@ -30,6 +29,10 @@ int	RPN::parse_input()
 {
 	int	i = 0;
 
+	if (input.empty()) {
+		error("empty input.");
+		return 1;
+	}
 	while (input[i])
 	{
 		if (!std::isdigit(input[i]) && input[i] != '-' && input[i] != '+' && input[i] != '*' && input[i] != '/' && input[i] != ' ') {
@@ -57,84 +60,113 @@ int	RPN::parse_input()
 	}
 	if (fillAndParse())
 		return 1;
+	std::deque<int>::iterator it = nbrs.begin();
+	std::cout << GREEN << " * Result =  " << RESET << *it << std::endl;
 	return 0;
 }
 
 int	RPN::fillAndParse()
 {
-	size_t	beg_pos = 0;
-	size_t	end_pos = input.find(' ');
-
-	if (end_pos == std::string::npos) {
-		error("digits and operations must be separated with a space.");
-		return 1;
-	}
-	while (true)
-	{
-		std::string	chunk = input.substr(beg_pos, 1);
-		beg_pos = end_pos + 1;
-		end_pos = input.find(' ', beg_pos);
-		if (chunk == "-" || chunk == "+" || chunk == "*" || chunk == "/")
-			ops.push_back(chunk);
-		else {
-			if (std::atoi(chunk.c_str()) > 10 || std::atoi(chunk.c_str()) < 0) {
-				error("numbers must be between (0 - 10)");
+	int	i = 0;
+	while (input[i]) {
+		if (i % 2 == 0 && !std::isdigit(input[i]) && input[i] != '-' && input[i] != '+' && input[i] != '/' && input[i] != '*') {
+			error("a different character other than digits and (- + / *) is present in the input.");
+			return 1;
+		}
+		if (std::isdigit(input[i])) {
+			std::string nbr = input.substr(i, 1);
+			if (std::atoi(nbr.c_str()) < 0 || std::atoi(nbr.c_str()) > 9) {
+				error("number should be between (0 - 9).");
 				return 1;
 			}
-			nbrs.push_back(std::atoi(chunk.c_str()));
+			nbrs.push_back(std::atoi(nbr.c_str()));
 		}
-		if (end_pos == std::string::npos)
-			break ;
-	}
-	// Refactor and change this part
-	std::string last_chunk = input.substr(beg_pos);
-    if (!last_chunk.empty()) {
-        if (last_chunk == "-" || last_chunk == "+" || last_chunk == "*" || last_chunk == "/")
-            ops.push_back(last_chunk);
-        else {
-            if (std::atoi(last_chunk.c_str()) > 10 || std::atoi(last_chunk.c_str()) < 0) {
-                error("numbers must be between (0 - 10)");
-                return 1;
-            }
-            nbrs.push_back(std::atoi(last_chunk.c_str()));
-        }
-    }
-	if (mergeDeques())
-		return 1;
-	return 0;
-}
-
-int	RPN::mergeDeques()
-{
-	std::string	op;
-	int			nbr_1 = 0;
-	int			nbr_2 = 0;
-	int			result = 0;
-
-	while (!nbrs.empty() && !ops.empty())
-	{
-		nbr_1 = nbrs.front();
-		nbrs.pop_front();
-		nbr_2 = nbrs.front();
-		nbrs.pop_front();
-		op = ops.front();
-		ops.pop_front();
-		if (op == "+")
-			result = nbr_1 + nbr_2;
-		else if (op == "-")
-			result = nbr_1 - nbr_2;
-		else if (op == "*")
-			result = nbr_1 * nbr_2;
-		else if (op == "/") {
-			if (nbr_2 == 0) {
-				error("division by 0 is impossible.");
-				return 1;
+		if (input[i] == '+' && !nbrs.empty() && nbrs.size() >= 2) {
+			if (nbrs.size() > 2) {
+				int tmp = nbrs.front();
+				nbrs.pop_front();
+				int	nbr1 = nbrs.front();
+				nbrs.pop_front();
+				int	nbr2 = nbrs.front();
+				nbrs.pop_front();
+				nbrs.push_front(nbr1 + nbr2);
+				nbrs.push_front(tmp);
 			}
-			result = nbr_1 / nbr_2;
+			else {
+				int nbr1 = nbrs.front();
+				nbrs.pop_front();
+				int nbr2 = nbrs.front();
+				nbrs.pop_front();
+				nbrs.push_front(nbr1 + nbr2);
+			}
 		}
-		nbrs.push_front(result);
+		if (input[i] == '-' && !nbrs.empty() && nbrs.size() >= 2) {
+			if (nbrs.size() > 2) {
+				int tmp = nbrs.front();
+				nbrs.pop_front();
+				int	nbr1 = nbrs.front();
+				nbrs.pop_front();
+				int	nbr2 = nbrs.front();
+				nbrs.pop_front();
+				nbrs.push_front(nbr1 - nbr2);
+				nbrs.push_front(tmp);
+			}
+			else {
+				int nbr1 = nbrs.front();
+				nbrs.pop_front();
+				int nbr2 = nbrs.front();
+				nbrs.pop_front();
+				nbrs.push_front(nbr1 - nbr2);
+			}
+		}
+		if (input[i] == '/' && !nbrs.empty() && nbrs.size() >= 2) {
+			if (nbrs.size() > 2) {
+				int tmp = nbrs.front();
+				nbrs.pop_front();
+				int	nbr1 = nbrs.front();
+				nbrs.pop_front();
+				int	nbr2 = nbrs.front();
+				nbrs.pop_front();
+				if (nbr2 == 0) {
+					error("a number can not be divided by 0.");
+					return 1;
+				}
+				nbrs.push_front(nbr1 / nbr2);
+				nbrs.push_front(tmp);
+			}
+			else {
+				int nbr1 = nbrs.front();
+				nbrs.pop_front();
+				int nbr2 = nbrs.front();
+				nbrs.pop_front();
+				if (nbr2 == 0) {
+					error("a number can not be divided by 0.");
+					return 1;
+				}
+				nbrs.push_front(nbr1 / nbr2);
+			}
+		}
+		if (input[i] == '*' && !nbrs.empty() && nbrs.size() >= 2) {
+			if (nbrs.size() > 2) {
+				int tmp = nbrs.front();
+				nbrs.pop_front();
+				int	nbr1 = nbrs.front();
+				nbrs.pop_front();
+				int	nbr2 = nbrs.front();
+				nbrs.pop_front();
+				nbrs.push_front(nbr1 * nbr2);
+				nbrs.push_front(tmp);
+			}
+			else {
+				int nbr1 = nbrs.front();
+				nbrs.pop_front();
+				int nbr2 = nbrs.front();
+				nbrs.pop_front();
+				nbrs.push_front(nbr1 * nbr2);
+			}
+		}
+		i++;
 	}
-	std::cout << GREEN << " * Result = " << RESET << nbrs.front() << std::endl;
 	return 0;
 }
 

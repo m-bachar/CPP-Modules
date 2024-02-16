@@ -5,7 +5,7 @@ int	main(int ac, char *av[])
 	try {
 		if (ac != 2)
 		{
-			std::cout << RED << " * Error : " << RESET << "invalid arguments count" << std::endl;
+			std::cout << RED << " * Error : " << RESET << "invalid arguments count." << std::endl;
 			return 1;
 		}
 		RPN	rpn(av[1]);
@@ -14,6 +14,6 @@ int	main(int ac, char *av[])
 		return 0;
 	}
 	catch (std::exception &e) {
-		std::cout << RED << " * Error : " << RESET << e.what() << std::endl;
+		std::cout << RED << " * Error : " << RESET << e.what() << "." << std::endl;
 	}
 }
