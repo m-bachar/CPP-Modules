@@ -24,7 +24,7 @@ class RPN
 		RPN(const RPN &obj);
 		RPN	&operator=(const RPN &obj);
 		int		parse_input();
-		void	error();
+		void	error(std::string errorMessage);
 		int		fillAndParse();
 		int		mergeDeques();
 		~RPN();
