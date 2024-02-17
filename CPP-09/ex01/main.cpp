@@ -17,3 +17,4 @@ int	main(int ac, char *av[])
 		std::cout << RED << " * Error : " << RESET << e.what() << "." << std::endl;
 	}
 }
+ 

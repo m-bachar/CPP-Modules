@@ -1,10 +1,10 @@
 #pragma once
 
 #include <iostream>
-#include <stack>
 #include <iterator>
 #include <algorithm>
-#include <deque>
+#include <vector>
+#include <sstream>
 
 # define	RESET	"\x1b[0m"
 # define	GREEN	"\x1b[1;32m"
@@ -14,9 +14,15 @@
 
 class PmergeMe
 {
+	public: // change it to private !!
+		std::vector<int>	nbrs1;
+		int					struggler;
 	public:
 		PmergeMe();
 		PmergeMe(const PmergeMe &obj);
 		PmergeMe	&operator=(const PmergeMe &obj);
+		void		error(std::string errorMessage);
+		int			parseInput(std::string av);
+		void		checkVector();
 		~PmergeMe();
 };
