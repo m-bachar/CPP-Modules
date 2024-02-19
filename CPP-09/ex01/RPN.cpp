@@ -48,7 +48,7 @@ int RPN::parse_input()
 			else if (token[0] == '-')
 				stack.push(nbr1 - nbr2);
 			else if (token[0] == '*')
-				stack.push(nbr1 - nbr2);
+				stack.push(nbr1 * nbr2);
 			else if (token[0] == '/') {
 				if (nbr2 == 0)
                     return (error("division by 0 is impossible."), 1);
