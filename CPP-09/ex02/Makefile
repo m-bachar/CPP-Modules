@@ -2,7 +2,7 @@ PMM			=	PmergeMe
 
 CPP			=	c++
 
-CPPFLAGS	=	-Wall -Wextra -Werror -std=c++98 -g
+CPPFLAGS	=	-Wall -Wextra -Werror -std=c++98
 
 SRC			=	main.cpp \
 				PmergeMe.cpp

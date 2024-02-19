@@ -76,7 +76,7 @@ int	BitcoinExchange::parseDate(std::string date)
 		error("year, month and day must have only digits.");
 		return 1;
 	}
-	if (date < "2009-01-02") { // To be continued ...
+	if (date < "2009-01-02" || date > "2024-03-01") { // To be continued ...
 		error("date is out of range.");
 		return 1;
 	}
