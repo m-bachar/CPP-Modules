@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <vector>
 #include <sstream>
+#include <ctime>
 
 # define	RESET	"\x1b[0m"
 # define	GREEN	"\x1b[1;32m"
@@ -15,8 +16,16 @@
 class PmergeMe
 {
 	public: // change it to private !!
-		std::vector<int>	nbrs1;
-		int					struggler;
+		// Vectors
+		std::vector<int>					nbrs1;
+		std::vector<int>					chain;
+		std::vector<int>					pend;
+		std::vector<int>					jacobsthal;
+		std::vector<int>					sequence;
+		std::vector<std::pair<int,int> >	nbrs2;
+		// Deques
+		int									struggler;
+		bool								struggler_presence;
 	public:
 		PmergeMe();
 		PmergeMe(const PmergeMe &obj);
@@ -24,5 +33,13 @@ class PmergeMe
 		void		error(std::string errorMessage);
 		int			parseInput(std::string av);
 		void		checkVector();
+		void		addPairs();
+		void		sortPairs();
+		void		swap(int &x, int &y);
+		void		stockInChainAndPend();
+		void		jacobsThal();
+		void		sequenceGen();
+		void		pushToChain();
+		bool		findd(std::vector<int>::iterator begin, std::vector<int>::iterator end, int occurence);
 		~PmergeMe();
 };

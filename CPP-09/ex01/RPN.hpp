@@ -1,12 +1,9 @@
 #pragma once
 
 #include <iostream>
-#include <iterator>
-#include <algorithm>
-#include <stack>
 #include <sstream>
 #include <stack>
-#include <cctype>
+#include <cstdlib>
 
 # define	RESET	"\x1b[0m"
 # define	GREEN	"\x1b[1;32m"
@@ -18,7 +15,7 @@ class RPN
 {
 	private:
 		std::string	input;
-		std::stack<int> nbrs;
+		std::stack<int> stack;
 	public:
 		RPN();
 		RPN(std::string input);
@@ -26,6 +23,5 @@ class RPN
 		RPN	&operator=(const RPN &obj);
 		void	error(std::string errorMessage);
 		int		parse_input();
-		int		fillAndParse();
 		~RPN();
 };

@@ -10,24 +10,31 @@ int main(int ac, char *av[])
 				return 1;
 			i++;
 		}
-		std::vector<int>::iterator	it = pmm.nbrs1.begin();
-		int j = 0;
-		std::cout << ORANGE << "=========================================" << RESET << std::endl;
-		while (it != pmm.nbrs1.end()) {
-			std::cout << GREEN << " * Number " << j << " = " << RESET << *it << std::endl;
-			j++;
-			it++;
+
+		std::cout << "================== Before : ============================= " << std::endl;
+		std::vector<int>::iterator it;
+		for (it = pmm.nbrs1.begin(); it != pmm.nbrs1.end(); it++) {
+			std::cout << *it << " ";
 		}
+		std::cout << std::endl;
+		std::cout << "======================================================== " << std::endl;
+		clock_t	v_start = clock();
 		pmm.checkVector();
-		j = 0;
-		it = pmm.nbrs1.begin();
-		std::cout << ORANGE << "=========================================" << RESET << std::endl;
-		while (it != pmm.nbrs1.end()) {
-			std::cout << GREEN << " * Number " << j << " = " << RESET << *it << std::endl;
-			j++;
-			it++;
+		pmm.addPairs();
+		pmm.sortPairs();
+		pmm.stockInChainAndPend();
+		pmm.jacobsThal();
+		pmm.sequenceGen();
+		pmm.pushToChain();
+		clock_t	v_end = clock();
+		double v_time_taken = double(v_end - v_start) / CLOCKS_PER_SEC * 1000.0; 
+		std::cout << "================== After : ============================= " << std::endl;
+		for (it = pmm.chain.begin(); it != pmm.chain.end(); it++) {
+			std::cout << *it << " ";
 		}
-		std::cout << ORANGE << "=========================================" << RESET << std::endl;
+		std::cout << std::endl;
+		std::cout << "======================================================== " << std::endl;
+		std::cout << PURPLE << " * Time taken by vector to process a range of " << GREEN << pmm.nbrs1.size() << PURPLE << " numbers is : " << ORANGE << v_time_taken << " us." << RESET << std::endl;
 	}
 	else {
 		std::cout << RED << " * Error : " << RESET << "invalid arguments count." << std::endl;

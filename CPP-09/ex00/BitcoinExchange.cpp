@@ -31,7 +31,9 @@ int	BitcoinExchange::readFile(std::string filename, bool database)
 
 	if (!myFile)
 		error("unable to locate or open file.");
-	// Check if file is empty
+	if (!std::getline(myFile, line))
+		return(error("file is empty."), 1);
+	myFile.seekg(0);
 	while (std::getline(myFile, line)) {
 		if (parseLine(line, database))
 			return 1;
@@ -78,7 +80,7 @@ int	BitcoinExchange::parseDate(std::string date)
 		error("date is out of range.");
 		return 1;
 	}
-	if (std::atoi(month.c_str()) > 12 || std::atoi(month.c_str()) <= 0 || std::atoi(day.c_str()) > 30 || std::atoi(day.c_str()) <= 0) {
+	if (std::atoi(month.c_str()) > 12 || std::atoi(month.c_str()) <= 0 || std::atoi(day.c_str()) > 31 || std::atoi(day.c_str()) <= 0) {
 		error("month must be between (1 - 12) and day must be between (1 - 30).");
 		return 1;
 	}
@@ -115,7 +117,7 @@ int	BitcoinExchange::parseValue(std::string value)
 			return 1;
 		}
 	}
-	// Check if value is < 0 or > 1000
+	// Check if value < 0 or  value > 1000
 	if (std::atof(value.c_str()) < 0 || std::atof(value.c_str()) > 1000) {
 		error("value must be between (0 - 1000)");
 		return 1;
@@ -126,12 +128,12 @@ int	BitcoinExchange::parseValue(std::string value)
 int	BitcoinExchange::parseLine(std::string line, bool database)
 {
 	static int flag = 0;
-	// database == false ==> Parsing input file 
+	// database == false ==> Parsing input file
 	if (database == false) {
 		int	space_count = countSpace(line);
 		size_t pipe_pos = line.find(" | ");
 		if (pipe_pos == std::string::npos || space_count != 2) {
-			error("syntax should be as follow (date | value).");
+			error("no pipe '|' found in the input.");
 			return 0;
 		}
 		date = line.substr(0, pipe_pos);
@@ -162,7 +164,7 @@ int	BitcoinExchange::parseLine(std::string line, bool database)
 		size_t del_pos = line.find(",");
 		if (del_pos == std::string::npos) {
 			error("syntax should be as follow (date,value).");
-			return 0;
+			return 1;
 		}
 		date = line.substr(0, del_pos);
 		value = line.substr(del_pos + 1, line.length() - del_pos);
