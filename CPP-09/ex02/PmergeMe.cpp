@@ -44,31 +44,18 @@ void	PmergeMe::print(bool flag)
 {
 	if (flag == true) {
 		std::vector<int>::iterator it_v;
-		std::deque<int>::iterator it_d;
-		std::cout << "================== Vector Before : ===================== " << std::endl;
+		std::cout << "================== Before : =========================== " << std::endl;
 		for (it_v = nbrs1_v.begin(); it_v != nbrs1_v.end(); it_v++) {
 			std::cout << *it_v << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "======================================================== " << std::endl;
-		std::cout << "================== Deque Before : ====================== " << std::endl;
-		for (it_d = nbrs1_d.begin(); it_d != nbrs1_d.end(); ++it_d) {
-			std::cout << *it_d << " ";
 		}
 		std::cout << std::endl;
 		std::cout << "======================================================== " << std::endl;
 	}
 	else {
 		std::vector<int>::iterator it_v;
-		std::deque<int>::iterator it_d;
-		std::cout << "================== Vector After : ====================== " << std::endl;
+		std::cout << "================== After : ============================= " << std::endl;
 		for (it_v = chain_v.begin(); it_v != chain_v.end(); it_v++) {
 			std::cout << *it_v << " ";
-		}
-		std::cout << std::endl;
-		std::cout << "================== Deque After : ======================= " << std::endl;
-		for (it_d = chain_d.begin(); it_d != chain_d.end(); ++it_d) {
-			std::cout << *it_d << " ";
 		}
 		std::cout << std::endl;
 		std::cout << "======================================================== " << std::endl;

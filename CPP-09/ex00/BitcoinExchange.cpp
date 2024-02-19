@@ -32,7 +32,7 @@ int	BitcoinExchange::readFile(std::string filename, bool database)
 	if (!myFile)
 		error("unable to locate or open file.");
 	if (!std::getline(myFile, line))
-		return(error("file is empty."), 1);
+		return(error("data.csv or input file is empty."), 1);
 	myFile.seekg(0);
 	while (std::getline(myFile, line)) {
 		if (parseLine(line, database))
