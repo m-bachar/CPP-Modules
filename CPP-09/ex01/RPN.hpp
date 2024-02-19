@@ -1,10 +1,12 @@
 #pragma once
 
 #include <iostream>
-#include <stack>
 #include <iterator>
 #include <algorithm>
-#include <deque>
+#include <stack>
+#include <sstream>
+#include <stack>
+#include <cctype>
 
 # define	RESET	"\x1b[0m"
 # define	GREEN	"\x1b[1;32m"
@@ -16,7 +18,7 @@ class RPN
 {
 	private:
 		std::string	input;
-		std::deque<int> nbrs;
+		std::stack<int> nbrs;
 	public:
 		RPN();
 		RPN(std::string input);
