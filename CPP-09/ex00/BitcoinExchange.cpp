@@ -30,7 +30,7 @@ int	BitcoinExchange::readFile(std::string filename, bool database)
 	std::string		line;
 
 	if (!myFile)
-		error("unable to locate or open file.");
+		return (error("unable to locate or open file."), 1);
 	if (!std::getline(myFile, line))
 		return(error("data.csv or input file is empty."), 1);
 	myFile.seekg(0);
@@ -76,7 +76,7 @@ int	BitcoinExchange::parseDate(std::string date)
 		error("year, month and day must have only digits.");
 		return 1;
 	}
-	if (date < "2009-01-02" || date > "2024-03-01") { // To be continued ...
+	if (date < "2009-01-02") {
 		error("date is out of range.");
 		return 1;
 	}
@@ -152,9 +152,9 @@ int	BitcoinExchange::parseLine(std::string line, bool database)
 			if (parseDate(date) || parseValue(value))
 				return 0;
 		}
-		std::multimap<std::string, float>::iterator	head = db.begin();
+
 		std::multimap<std::string, float>::iterator	it = db.lower_bound(date);
-		if (head->first < it->first)
+		if (date < it->first)
 			it--;
 		std::cout << GREEN << " * " << date << RESET << " ==> " << value << " * " << it->second << " = " << std::atof(value.c_str()) * it->second << std::endl;
 		
