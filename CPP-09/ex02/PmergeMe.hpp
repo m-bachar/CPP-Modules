@@ -22,14 +22,14 @@ class PmergeMe
 		std::vector<int>					chain_v;
 		std::vector<int>					pend_v;
 		std::vector<int>					jacobsthal_v;
-		std::vector<int>					sequence_v;
+		std::vector<int>					combination_v;
 		std::vector<std::pair<int,int> >	nbrs2_v;
 		// Deques
 		std::deque<int>					nbrs1_d;
 		std::deque<int>					chain_d;
 		std::deque<int>					pend_d;
 		std::deque<int>					jacobsthal_d;
-		std::deque<int>					sequence_d;
+		std::deque<int>					combination_d;
 		std::deque<std::pair<int,int> >	nbrs2_d;
 		// Benito hihi
 		int									struggler;
@@ -49,7 +49,7 @@ class PmergeMe
 		void		sortPairs_v();
 		void		stockInChainAndPend_v();
 		void		jacobsThal_v();
-		void		sequenceGen_v();
+		void		combinationGen_v();
 		void		pushToChain_v();
 		bool		find_v(std::vector<int>::iterator begin, std::vector<int>::iterator end, int occurence);
 		// Deque Methods
@@ -59,7 +59,7 @@ class PmergeMe
 		void		sortPairs_d();
 		void		stockInChainAndPend_d();
 		void		jacobsThal_d();
-		void		sequenceGen_d();
+		void		combinationGen_d();
 		void		pushToChain_d();
 		bool		find_d(std::deque<int>::iterator begin, std::deque<int>::iterator end, int occurence);
 		~PmergeMe();

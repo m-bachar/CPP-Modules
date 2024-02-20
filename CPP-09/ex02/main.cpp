@@ -25,7 +25,7 @@ int main(int ac, char *av[])
 		pmm.sortPairs_v();
 		pmm.stockInChainAndPend_v();
 		pmm.jacobsThal_v();
-		pmm.sequenceGen_v();
+		pmm.combinationGen_v();
 		pmm.pushToChain_v();
 		clock_t	v_end = clock();
 		double v_time_taken = double(v_end - v_start) / CLOCKS_PER_SEC * 1000.0; 
@@ -37,7 +37,7 @@ int main(int ac, char *av[])
 		pmm.sortPairs_d();
 		pmm.stockInChainAndPend_d();
 		pmm.jacobsThal_d();
-		pmm.sequenceGen_d();
+		pmm.combinationGen_d();
 		pmm.pushToChain_d();
 		pmm.print(false);
 		clock_t	d_end = clock();

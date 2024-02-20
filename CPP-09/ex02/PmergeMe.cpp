@@ -17,7 +17,7 @@ PmergeMe	&PmergeMe::operator=(const PmergeMe &obj)
 	chain_v = obj.chain_v;
 	pend_v = obj.pend_v;
 	jacobsthal_v = obj.jacobsthal_v;
-	sequence_v = obj.sequence_v;
+	combination_v = obj.combination_v;
 	nbrs2_v = obj.nbrs2_v;
 
 	// Deque
@@ -25,7 +25,7 @@ PmergeMe	&PmergeMe::operator=(const PmergeMe &obj)
 	chain_d = obj.chain_d;
 	pend_d = obj.pend_d;
 	jacobsthal_d = obj.jacobsthal_d;
-	sequence_d = obj.sequence_d;
+	combination_d = obj.combination_d;
 	nbrs2_d = obj.nbrs2_d;
 
 	// Benito hihi
@@ -116,7 +116,7 @@ int	PmergeMe::parseInput_v(std::string av)
 	return 0;
 }
 
-// Step 2 : Check if container's size if not pair ==> pop the struggler
+// Step 2 : Check if container's size . If size if odd ==> pop the struggler
 void	PmergeMe::checkVector()
 {
 	if (nbrs1_v.size() % 2 != 0) {
@@ -174,7 +174,7 @@ void	PmergeMe::stockInChainAndPend_v()
 	chain_v.insert(chain_v.begin(), *it_);
 }
 
-// Step 6 : The almighty Jaconbs Thal algorithm
+// Step 6 : The almighty JacobsThal Sequence
 void	PmergeMe::jacobsThal_v()
 {
 	jacobsthal_v.push_back(0);
@@ -194,8 +194,8 @@ void	PmergeMe::jacobsThal_v()
 	}
 }
 
-// Step 7 : Generating the sequence (It's a pain in the ass :( )
-void	PmergeMe::sequenceGen_v()
+// Step 7 : Generating the combination based on JacobsThal Sequence (It was a pain in the ass ngl :( )
+void	PmergeMe::combinationGen_v()
 {
 	for (std::vector<int>::iterator it = jacobsthal_v.begin() + 3; it != jacobsthal_v.end(); it++) {
 		size_t new_nbr = *it;
@@ -205,7 +205,7 @@ void	PmergeMe::sequenceGen_v()
 				continue;
 			}
 			else
-				sequence_v.push_back(new_nbr);
+				combination_v.push_back(new_nbr);
 			new_nbr--;
 		}
 	}
@@ -214,9 +214,9 @@ void	PmergeMe::sequenceGen_v()
 // Step 8 : Push elements from pend to chain using merge sort
 void	PmergeMe::pushToChain_v()
 {
-	std::vector<int>::iterator	j = sequence_v.begin();
+	std::vector<int>::iterator	j = combination_v.begin();
 
-	while (j != sequence_v.end()) {
+	while (j != combination_v.end()) {
 		int index = *j - 1;
 		if (pend_v[index]) {
 			std::vector<int>::iterator it = std::lower_bound(chain_v.begin(), chain_v.end(), pend_v[index]);
@@ -270,7 +270,7 @@ int	PmergeMe::parseInput_d(std::string av)
 	return 0;
 }
 
-// Step 2 : Check if container's size if not pair ==> pop the struggler
+// Step 2 : Check if container's size. If size is odd ==> pop the struggler
 void	PmergeMe::checkDeque()
 {
 	if (nbrs1_d.size() % 2 != 0) {
@@ -328,7 +328,7 @@ void	PmergeMe::stockInChainAndPend_d()
 	chain_d.insert(chain_d.begin(), *it_);
 }
 
-// Step 6 : The almighty Jaconbs Thal algorithm
+// Step 6 : The almighty JacobsThal Sequence
 void	PmergeMe::jacobsThal_d()
 {
 	jacobsthal_d.push_back(0);
@@ -348,8 +348,8 @@ void	PmergeMe::jacobsThal_d()
 	}
 }
 
-// Step 7 : Generating the sequence (It's a pain in the ass :( )
-void	PmergeMe::sequenceGen_d()
+// Step 7 : Generating the combination (It was a pain in the ass ngl :( )
+void	PmergeMe::combinationGen_d()
 {
 	for (std::deque<int>::iterator it = jacobsthal_d.begin() + 3; it != jacobsthal_d.end(); it++) {
 		size_t new_nbr = *it;
@@ -359,7 +359,7 @@ void	PmergeMe::sequenceGen_d()
 				continue;
 			}
 			else
-				sequence_d.push_back(new_nbr);
+				combination_d.push_back(new_nbr);
 			new_nbr--;
 		}
 	}
@@ -368,9 +368,9 @@ void	PmergeMe::sequenceGen_d()
 // Step 8 : Push elements from pend to chain using merge sort
 void	PmergeMe::pushToChain_d()
 {
-	std::deque<int>::iterator	j = sequence_d.begin();
+	std::deque<int>::iterator	j = combination_d.begin();
 
-	while (j != sequence_d.end()) {
+	while (j != combination_d.end()) {
 		int index = *j - 1;
 		if (pend_d[index]) {
 			std::deque<int>::iterator it = std::lower_bound(chain_d.begin(), chain_d.end(), pend_d[index]);
