@@ -91,6 +91,8 @@ int	BitcoinExchange::parseValue(std::string value)
 {
 	int	dots_counter = 0;
 	// Counting dots in the value
+	if (!value.size())
+		return (error("no value found."), 1);
 	for (size_t i = 0; i < value.length(); i++)
 		if (value[i] == '.')
 			dots_counter++;
